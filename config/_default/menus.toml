@@ -24,6 +24,11 @@
   weight = 40
 
 [[main]]
+  name = "Skills"
+  url = "#featurette"
+  weight = 50
+
+[[main]]
   name = "Research"
   url = "#research"
   weight = 60
