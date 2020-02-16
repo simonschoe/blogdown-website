@@ -9,7 +9,7 @@ active = true  # Activate this widget? true/false
 weight = 80  # Order that this section will appear.
 
 title = "Featured Publications"
-subtitle = ""
+subtitle = "Show some selected publications here"
 
 [content]
   # Page type to display. E.g. post, talk, or publication.
@@ -62,3 +62,5 @@ subtitle = ""
  # CSS class.
  css_class = ""
 +++
+
+Generally, if you write any text in the file body after a widget’s front matter, your text will appear at the top of the widget. This can be useful for introducing the widget content.
