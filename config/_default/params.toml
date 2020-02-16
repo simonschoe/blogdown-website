@@ -44,7 +44,7 @@ local_business_type = ""
 org_name = ""
 
 # Description for social sharing and search engines. If undefined, superuser role is used in place.
-description = "This is the personal website of Simon Schölzel."
+description = "This is the personal website of Simon Schölzel..."
 
 ############################
 ## Site Features
