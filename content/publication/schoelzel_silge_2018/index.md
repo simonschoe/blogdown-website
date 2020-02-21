@@ -26,10 +26,10 @@ tags:
 title: Market reactions to credit rating changes: The impact of using value-based performance measures
 url_code: ""
 url_dataset: ""
-url_pdf: "schoelzel_silge_2018"
+url_pdf: "schoelzel_silge_2018.pdf"
 url_poster: ""
 url_project: ""
-url_slides: "schoelzel_silge_2018_eaa"
+url_slides: "schoelzel_silge_2018_eaa.pdf"
 url_source: ""
 url_video: ""
 links:
