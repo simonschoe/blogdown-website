@@ -11,7 +11,7 @@ image:
   focal_point: ""
   preview_only: false
 projects: []
-publication: "*Proceedings of the 41st Annual Congress of the European Accounting Association*""
+publication: "*Proceedings of the 41st Annual Congress of the European Accounting Association*"
 publication_short: ""
 publication_types:
 - "1"
