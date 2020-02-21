@@ -33,4 +33,6 @@ url_project: ""
 url_slides: "schoelzel_silge_2018_eaa.pdf"
 url_source: ""
 url_video: ""
+share: false
+commentable: true 
 ---
