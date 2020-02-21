@@ -20,8 +20,8 @@ publishDate: ""
 slides: 
 summary: Working paper
 tags:
-- value-based management
-title: Market reactions to credit rating changes: The impact of using value-based performance measures
+- Value-based management
+title: Market reactions to credit rating changes - The impact of using value-based performance measures
 url_code: ""
 url_dataset: ""
 url_pdf: "schoelzel_silge_2018.pdf"
