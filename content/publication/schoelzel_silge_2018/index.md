@@ -21,10 +21,6 @@ slides:
 summary: Working paper
 tags:
 - value-based management
-- issuer rating
-- downgrades
-#- upgrades
-#- event study
 title: Market reactions to credit rating changes: The impact of using value-based performance measures
 url_code: ""
 url_dataset: ""
