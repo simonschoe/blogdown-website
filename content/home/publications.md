@@ -62,5 +62,3 @@ subtitle = "Some selected publications from my time as a graduate student"
  # CSS class.
  css_class = ""
 +++
-
-Generally, if you write any text in the file body after a widget’s front matter, your text will appear at the top of the widget. This can be useful for introducing the widget content.

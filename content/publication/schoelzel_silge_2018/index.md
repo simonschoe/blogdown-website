@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
 title: >
-  Market reactions to credit rating changes: The impact of using value-based performance measures
+  Market Reactions to Credit Rating Changes: The Impact of Using Value-Based Performance Measures
 authors: ["simon", "Lisa Silge"]
 date: 2018-05-31
 doi: ""

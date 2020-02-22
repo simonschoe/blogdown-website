@@ -6,7 +6,7 @@ active = true  # Activate this widget? true/false
 weight = 3  # Order that this section will appear.
 
 title = "Portfolio"
-subtitle = "Here I am about to show some data science projects"
+subtitle = "Some selected data projects from my time as a graduate student"
 
 [content]
   # Page type to display. E.g. project.
@@ -35,7 +35,7 @@ subtitle = "Here I am about to show some data science projects"
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.
-  columns = "2"
+  columns = "1"
 
   # Toggle between the various page layout types.
   #   1 = List
