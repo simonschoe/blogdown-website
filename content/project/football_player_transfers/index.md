@@ -3,7 +3,7 @@
 
 title: >
   The Transfer Market Madness: Determinants and Predictions of Football Player Transfer Fees
-subtitle: *Big Data Analytics 2019 @ CBS*
+subtitle: "*Big Data Analytics 2019 @ CBS*"
 authors: ["simon"]
 tags: [Football analytics, Transfer fees, Player popularity, Predictive modelling, Regression]
 categories: []
