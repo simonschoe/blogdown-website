@@ -3,12 +3,15 @@
 
 title: >
   The Transfer Market Madness: Determinants and Predictions of Football Player Transfer Fees
-subtitle: Big Data Analytics 2019 @ CBS
-summary: "Big Data Analytics 2019 @ CBS"
+subtitle: *Big Data Analytics 2019 @ CBS*
 authors: ["simon"]
 tags: [Football analytics, Transfer fees, Player popularity, Predictive modelling, Regression]
 categories: []
 date: 2019-12-20
+
+
+# Summary. An optional shortened abstract.
+summary: "*Big Data Analytics 2019 @ CBS*"
 
 # Optional external URL for project (replaces project detail page).
 external_link: ""
@@ -18,7 +21,7 @@ external_link: ""
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
   caption: "Data analysis process diagram"
-  focal_point: "BottomRight"
+  focal_point: "TopRight"
   preview_only: false
 
 # Custom links (optional).
@@ -40,6 +43,9 @@ url_video: ""
 #   E.g. `slides = "example-slides"` references `content/slides/example-slides.md`.
 #   Otherwise, set `slides = ""`.
 slides: ""
+
+share: false
+commentable: true 
 ---
 
 In the recent years, excessive transfer fees for football players have turned the European transfer market upside down – a development coined as the ‘transfer market madness’ in this paper. Predicting those fees is assumed to be of great interest to researchers, policy makers, managers and the public alike. This paper addresses the issue by discussing the following four research questions: (1) What are the important value drivers that determine transfer fees in the European football market? (2) Is there a significant influence of a player’s popularity on transfer fees? (3) Which model for estimating football transfer fees performs best in terms of predictive accuracy? (4) Where is the transfer market madness heading to?
