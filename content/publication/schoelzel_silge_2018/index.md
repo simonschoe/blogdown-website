@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title:
+title: >
 	"Market reactions to credit rating changes: The impact of using value-based performance measures"
 authors: ["simon", "Lisa Silge"]
 date: 2018-05-31
