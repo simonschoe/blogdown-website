@@ -2,8 +2,8 @@
 header:
   caption: ""
   image: ""
-title: Teaching
-view: 2
+title: Portfolio
+view: 3
 # View.
 #   1 = List
 #   2 = Compact
