@@ -21,10 +21,10 @@ organizations:
 bio: My research addresses the question of how to leverage data science and machine learning capabilities in the field of accounting.
 
 interests:
-- Accounting data analytics and statistics
-- Data visualization
-- Education and learning
-- Electronic Music
+- Accounting Data Analytics
+- Machine Learning and Statistics
+- Data Visualization
+- Education and Learning
 
 education:
   courses:
@@ -52,9 +52,6 @@ social:
 - icon: linkedin
   icon_pack: fab
   link: https://www.linkedin.com/in/simon-sch%C3%B6lzel/
-- icon: soundcloud
-  icon_pack: fab
-  link: https://soundcloud.com/sims0l0n
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
 # - icon: cv
