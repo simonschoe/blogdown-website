@@ -9,7 +9,7 @@ active = true  # Activate this widget? true/false
 weight = 2  # Order that this section will appear.
 
 title = "Publications"
-subtitle = "Some selected publications from my time as a graduate student"
+subtitle = "Publications"
 
 [content]
   # Page type to display. E.g. post, talk, or publication.

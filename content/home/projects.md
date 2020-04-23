@@ -6,7 +6,7 @@ active = true  # Activate this widget? true/false
 weight = 3  # Order that this section will appear.
 
 title = "Projects"
-subtitle = "Some selected data projects from my time as a graduate student"
+subtitle = "Projects"
 
 [content]
   # Page type to display. E.g. project.
