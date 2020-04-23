@@ -2,13 +2,13 @@
 name = "alison"
 
 # Optional Google font URL
-google_fonts = "AGaramond-Regular:400,400i|AGaramond-Regular:400,700|AGaramond-Regular+AGaramond-Regular"
+google_fonts = "AGaramond:400,400i|AGaramond:400,700|AGaramond+AGaramond"
 
 # Font families
-heading_font = "AGaramond-Regular"
-body_font = "AGaramond-Regular"
-nav_font = "AGaramond-Regular"
-mono_font = "AGaramond-Regular"
+heading_font = "AGaramond"
+body_font = "AGaramond"
+nav_font = "AGaramond"
+mono_font = "AGaramond"
 
 # Font size
 font_size = "18"
