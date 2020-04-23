@@ -31,7 +31,7 @@ education:
   - course: MSc, Accounting & Finance
     institution: University of Münster
     year: 2020
-  - course: Erasmus, Data Science & Finance
+  - course: Exchange, Data Science & Finance
     institution: Copenhagen Business School
     year: 2019
   - course: BSc, Business Administration
