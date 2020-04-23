@@ -19,10 +19,10 @@ external_link: ""
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
-image:
-  caption: "Data analysis process diagram"
-  focal_point: "TopRight"
-  preview_only: false
+#image:
+#  caption: "Data analysis process diagram"
+#  focal_point: "TopRight"
+#  preview_only: false
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.
@@ -55,3 +55,5 @@ Dashboard description
 
 
 test
+
+![an image caption Source: Ultimate Funny Dog Videos Compilation 2013.](featured.png)
