@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Prospective PhD Student in Accounting Data Analytics • Intern @ Bayer AG
+role: Data Science Enthusiast • PhD Student in Accounting
 
 # Organizations/Affiliations
 organizations:
@@ -45,13 +45,13 @@ education:
 social:
 - icon: envelope
   icon_pack: fas
-  link: 'mailto:simon.schoelzel@uni-muenster.de'
+  link: 'mailto:simon.schoelzel@wiwi.uni-muenster.de'
 - icon: github
   icon_pack: fab
   link: https://github.com/simonschoe
 - icon: linkedin
   icon_pack: fab
-  link: https://www.linkedin.com/in/simon-sch%C3%B6lzel/
+  link: https://www.linkedin.com/in/simon-schoelzel/
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
 # - icon: cv
@@ -66,10 +66,6 @@ user_groups:
 
 ---
 
-I am a prospective PhD student intrigued by research at the intersection between data science and accounting. After having explored different facets of data science (e.g., text mining and predictive modelling) in the context of accounting and finance at the [Münster School of Business and Economics](https://www.wiwi.uni-muenster.de/fakultaet/en) as well as [Copenhagen Business School](https://www.cbs.dk/en), I will continue this journey - starting in April 2020.
+I am a PhD student intrigued by research at the intersection between data science and accounting. After having explored different facets of data science (e.g., text mining and predictive modelling) in the context of accounting and finance at the [Münster School of Business and Economics](https://www.wiwi.uni-muenster.de/fakultaet/en) and [Copenhagen Business School](https://www.cbs.dk/en), I envision to contribute to the field with the principles of open science in mind.
 
-During my time as a student research assistant at [Research Team Berens](https://www.wiwi.uni-muenster.de/ctrl/), I gained experience in experimental design, data collection, statistical modelling and Monte Carlo simulation in R and taught classes in management accounting, operations research and SQL.
-
-As an intern at Miele, BASF and Bayer, I supported and worked on multiple projects within the accounting domain and gained hands-on experience in working with operational data from prevalent accounting information systems using R and Tableau.
-
-My research focuses on ...
+During my time as a student research assistant at [Research Team Berens](https://www.wiwi.uni-muenster.de/ctrl/), I gained experience in experimental design, data collection, statistical modelling and Monte Carlo simulation in R and taught classes in management accounting, operations research and SQL. Beisde, I worked as an intern at Miele, BASF as well as Bayer. I supported and worked on multiple projects within the accounting domain and gained hands-on experience in working with operational data from prevalent accounting information systems using R and Tableau.
