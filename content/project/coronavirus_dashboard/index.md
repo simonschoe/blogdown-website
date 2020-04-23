@@ -19,10 +19,10 @@ external_link: ""
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
-#image:
-#  caption: "Data analysis process diagram"
-#  focal_point: "TopRight"
-#  preview_only: false
+image:
+  caption: "featured"
+  focal_point: "TopRight"
+  preview_only: false
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.
@@ -49,7 +49,7 @@ commentable: true
 ---
 
 Dashboard description
-
+Last update: 18-04-2020
 
 
 
