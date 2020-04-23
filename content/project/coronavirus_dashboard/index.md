@@ -57,8 +57,6 @@ Dashboard description
 test
 
 Click the image to interact
-![an image caption Source: Ultimate Funny Dog Videos Compilation 2013.](featured.png)
-
-[![SIMON](https://public.tableau.com/views/SARS-CoV-2Dashboard_15872319731490/Global?:display_count=y&:origin=viz_share_link)](featured.png)
+[![SIMON](featured.png)](https://public.tableau.com/views/SARS-CoV-2Dashboard_15872319731490/Global?:display_count=y&:origin=viz_share_linkfeatured.png)
 
 
