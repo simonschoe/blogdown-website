@@ -5,10 +5,10 @@ name = "alison"
 google_fonts = "Meta:400,400i|Meta:400,700|Meta+Meta"
 
 # Font families
-heading_font = "AGaramond"
-body_font = "AGaramond"
-nav_font = "AGaramond"
-mono_font = "AGaramond"
+heading_font = "AGaramond-Regular"
+body_font = "AGaramond-Regular"
+nav_font = "AGaramond-Regular"
+mono_font = "AGaramond-Regular"
 
 # Font size
 font_size = "18"
