@@ -5,7 +5,7 @@
 
 widget = "blank"  # Do not modify this line!
 active = true  # Activate this widget? true/false
-weight = 140  # Order that this section will appear.
+weight = 1  # Order that this section will appear.
 
 # Note: a full width section format can be enabled by commenting out the `title` and `subtitle` with a `#`.
 title = " "
@@ -37,7 +37,7 @@ subtitle = ""
 
 [advanced]
  # Custom CSS. 
- css_style = "padding-top: 20px; padding-bottom: 20px;"
+ css_style = "padding-top: 50px; padding-bottom: 50px;"
  
  # CSS class.
  css_class = ""
