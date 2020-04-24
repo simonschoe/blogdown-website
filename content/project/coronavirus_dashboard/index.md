@@ -3,7 +3,7 @@
 
 title: >
   Coronavirus (SARS-CoV-2) Dashboard based on JHU CSSE data
-subtitle: "*Data Visualization Project*"
+subtitle: "*A data visualization project concerned with the spread of the novel Coronavirus realized in R and Tableau.*"
 authors: ["simon"]
 tags: [Data Visualization, Coronavirus, Dashboard, Tableau]
 categories: []
@@ -59,9 +59,9 @@ The data in `R` and cleaned using the tools provided in `tidyverse` R-package co
 - `Total Closed Cases`, `Total Active Cases`,
 - `Incremental Confirmed Cases`, `Incremental Recovered Cases`, `Incremental Dead Cases`, `Incremental Closed Cases`, `Incremental Active Cases`,
 - the `log` of each all total and incremental termed features,
-- the `Infection-Recovery-Ratio` computed `Total Confirmed Cases` over `Total Recovered Cases`,
-- the `Recovery-Death-Ratio` computed `Total Recovered Cases` over `Total Dead Cases`,
-- the `Active-Closed-Ratio` computed `Total Active Cases` over `Total Closed Cases`,
+- the `Infection-Recovery-Ratio` computed as `Total Confirmed Cases` over `Total Recovered Cases`,
+- the `Recovery-Death-Ratio` computed as `Total Recovered Cases` over `Total Dead Cases`,
+- the `Active-Closed-Ratio` computed as `Total Active Cases` over `Total Closed Cases`,
 - the version of the case fatality rate (CFR) computed as the `Total Dead Cases` relative to the `Total Confirmed Cases` (*CFR1*), the sum of `Total Recovered Cases` and `Total Dead Cases` (*CFR2*) respectively `Total Confirmed Cases` at `t-8` (*CFR3*) with eight assumed to be the average incubation period and
 - the `Doubling Time` of the `Total Confirmed Cases` in days.
 

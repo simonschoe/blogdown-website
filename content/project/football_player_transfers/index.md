@@ -3,7 +3,7 @@
 
 title: >
   The Transfer Market Madness: Determinants and Predictions of Football Player Transfer Fees
-subtitle: "*Machine Learning Project*"
+subtitle: "*A machine learning project concerned with estimating the future transfer fees of European football players realized in R.*"
 authors: ["simon"]
 tags: [Football Analytics, Transfer Fees, Player Popularity, Predictive Modelling, Regression]
 categories: []
