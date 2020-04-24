@@ -22,7 +22,7 @@ external_link: ""
 image:
   placement: 1
   caption: "© [Markus Spiske](https://www.pexels.com/de-de/foto/nummern-notfall-alarm-warnung-3970330/)"
-  focal_point: "TopRight"
+  focal_point: "TopLeft"
   preview_only: false
 
 # Custom links (optional).
