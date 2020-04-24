@@ -37,8 +37,7 @@ subtitle = ""
 
 [advanced]
  # Custom CSS. 
- css_style = "margin-top: auto"
- css_style = "margin-bottom: auto"
+ css_style = "text-align: center"
  css_style = "height: 200px"
 
  # CSS class.
