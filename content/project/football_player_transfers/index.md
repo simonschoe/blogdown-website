@@ -3,7 +3,7 @@
 
 title: >
   The Transfer Market Madness: Determinants and Predictions of Football Player Transfer Fees
-subtitle: "*Big Data Analytics 2019 @ CBS*"
+subtitle: "*Machine Learning Project*"
 authors: ["simon"]
 tags: [Football Analytics, Transfer Fees, Player Popularity, Predictive Modelling, Regression]
 categories: []
@@ -11,7 +11,7 @@ date: 2019-12-20
 
 
 # Summary. An optional shortened abstract.
-summary: "*Big Data Analytics 2019 @ CBS*"
+summary: A machine learning project concerned with estimating the future transfer fees of European football players realized in R.
 
 # Optional external URL for project (replaces project detail page).
 external_link: ""
@@ -20,10 +20,10 @@ external_link: ""
 # To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
-  placement: 2
+  placement: 1
   caption: "© [Markus Spiske](https://www.pexels.com/de-de/foto/himmel-sonnenuntergang-feld-sonnenaufgang-114296/)"
   focal_point: "TopLeft"
-  preview_only: false
+  preview_only: true
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.
