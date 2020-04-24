@@ -20,9 +20,10 @@ external_link: ""
 # To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
-  caption: "© Markus Spiske"
+  placement: 1
+  caption: "© [Markus Spiske](https://www.pexels.com/de-de/foto/nummern-notfall-alarm-warnung-3970330/)"
   focal_point: "TopRight"
-  preview_only: true
+  preview_only: false
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.

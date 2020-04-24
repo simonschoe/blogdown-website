@@ -20,7 +20,8 @@ external_link: ""
 # To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
-  caption: "© Markus Spiske"
+  placement: 3
+  caption: "© [Markus Spiske](https://www.pexels.com/de-de/foto/himmel-sonnenuntergang-feld-sonnenaufgang-114296/)"
   focal_point: "TopRight"
   preview_only: false
 
