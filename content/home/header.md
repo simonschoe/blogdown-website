@@ -37,7 +37,6 @@ subtitle = ""
 
 [advanced]
  # Custom CSS. 
- css_style = "display: block"
  css_style = "margin-top: auto"
  css_style = "margin-bottom: auto"
  css_style = "height: 200px"
