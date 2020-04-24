@@ -37,7 +37,7 @@ subtitle = ""
 
 [advanced]
  # Custom CSS. 
- css_style = "text-align: center"
+ css_style = "display: block"
  css_style = "height: 200px"
 
  # CSS class.
