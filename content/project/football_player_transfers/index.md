@@ -22,7 +22,7 @@ external_link: ""
 image:
   caption: "© Markus Spiske"
   focal_point: "TopRight"
-  preview_only: true
+  preview_only: false
 
 # Custom links (optional).
 #   Uncomment and edit lines below to show custom links.
