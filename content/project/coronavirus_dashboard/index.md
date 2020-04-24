@@ -5,7 +5,7 @@ title: >
   Coronavirus (SARS-CoV-2) Dashboard based on JHU CSSE data
 subtitle: "*Tableau Project*"
 authors: ["simon"]
-tags: [Data visualization, coronavirus, dashboard, Tableau]
+tags: [Data Visualization, Coronavirus, Dashboard, Tableau]
 categories: []
 date: 2020-04-18
 
@@ -20,7 +20,7 @@ external_link: ""
 # To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
-  caption: ""
+  caption: "© Markus Spiske"
   focal_point: "TopRight"
   preview_only: true
 
@@ -32,8 +32,8 @@ image:
 #   icon_pack: fab
 #   icon: twitter
 
-url_code: "https://github.com/simonschoe/project_player_transfers"
-url_pdf: "football_player_transfers.pdf"
+url_code: ""
+url_pdf: ""
 url_slides: ""
 url_video: ""
 
@@ -44,7 +44,7 @@ url_video: ""
 #   Otherwise, set `slides = ""`.
 slides: ""
 
-share: false
+share: true
 commentable: true 
 ---
 
@@ -52,8 +52,7 @@ Dashboard description
 Last update: 18-04-2020
 
 
-
 Click the image to interact
-[![SIMON](dashboard.png)](https://public.tableau.com/views/SARS-CoV-2Dashboard_15872319731490/Global?:display_count=y&:origin=viz_share_linkfeatured.png)
+[![SIMON](preview.png)](https://public.tableau.com/views/SARS-CoV-2Dashboard_15872319731490/Global?:display_count=y&:origin=viz_share_linkfeatured.png)
 
 

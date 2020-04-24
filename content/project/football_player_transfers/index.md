@@ -5,7 +5,7 @@ title: >
   The Transfer Market Madness: Determinants and Predictions of Football Player Transfer Fees
 subtitle: "*Big Data Analytics 2019 @ CBS*"
 authors: ["simon"]
-tags: [Football analytics, Transfer fees, Player popularity, Predictive modelling, Regression]
+tags: [Football Analytics, Transfer Fees, Player Popularity, Predictive Modelling, Regression]
 categories: []
 date: 2019-12-20
 
@@ -20,7 +20,7 @@ external_link: ""
 # To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
-  caption: ""
+  caption: "© Markus Spiske"
   focal_point: "TopRight"
   preview_only: true
 
