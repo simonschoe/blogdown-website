@@ -41,7 +41,7 @@ subtitle = ""
 
 [advanced]
  # Custom CSS. 
- #css_style = "height: 420"
+ css_style = "height: 420"
 
  # CSS class.
  css_class = ""
