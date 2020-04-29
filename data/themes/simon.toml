@@ -5,7 +5,7 @@ name = "simon"
 light = true
 
 # Primary
-primary = "#312b37"
+primary = "#8486B2"
 
 # Menu
 menu_primary = "#FFFFFF"
@@ -16,4 +16,4 @@ menu_title = "#333"
 # Backgrounds
 background = "#FFFFFF"
 home_section_odd = "#FFFFFF"
-home_section_even = "#FFFFFF"
+home_section_even = "#e6e6e6"
