@@ -6,7 +6,7 @@ active = true  # Activate this widget? true/false
 weight = 40  # Order that this section will appear.
 
 title = "Skills"
-subtitle = "Showcase some skills (test)"
+subtitle = "Skills"
 
 # Showcase personal skills or business features.
 # 
@@ -15,27 +15,21 @@ subtitle = "Showcase some skills (test)"
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
 
 [[feature]]
-  icon = "r-project"
+  icon = "wpexplorer"
   icon_pack = "fab"
-  name = "R"
-  description = "dplr, purrr, ggplot2, rvest, broom, recipes, modelr, tidytext, ..."
+  name = "Analytics"
+  description = "Machine learning, statistical modeling, natural language processing, text mining, data visualization"
 
 [[feature]]
-  icon = "python"
+  icon = "code"
   icon_pack = "fab"
-  name = "Python"
-  description = "numpy, pandas, ..."
+  name = "Technologies"
+  description = "R, SQL, Git, Tableau"
   
 [[feature]]
-  icon = "git-square"
+  icon = "heart"
   icon_pack = "fab"
-  name = "Git"
-  description = "description"  
+  name = "Passion"
+  description = "Data science"  
   
-[[feature]]
-  icon = "star"
-  icon_pack = "fas"
-  name = "Tableau"
-  description = "description"
-
 +++
