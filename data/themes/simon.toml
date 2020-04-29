@@ -5,12 +5,12 @@ name = "simon"
 light = true
 
 # Primary
-primary = "#00004d"
+primary = "#312b37"
 
 # Menu
 menu_primary = "#FFFFFF"
 menu_text = "#333"
-menu_text_active = "#00004d"
+menu_text_active = "#312b37"
 menu_title = "#333"
 
 # Backgrounds
