@@ -4,16 +4,18 @@ name = "simon"
 # Is theme light or dark?
 light = true
 
-# Primary
+# Primary (changes color of links and icons)
 primary = "#8486B2"
+primary_light = "#8486B2"
+primary_dark = "#8486B2"
 
 # Menu
-menu_primary = "#FFFFFF"
-menu_text = "#333"
-menu_text_active = "#0000EE"
-menu_title = "#333"
+menu_primary = "#302a36"
+menu_text = "#ffffff"
+menu_text_active = "#8486B2"
+menu_title = "#ffffff"
 
 # Backgrounds
 background = "#e6e6e6"
-home_section_odd = "#FFFFFF"
+home_section_odd = "#e6e6e6"
 home_section_even = "#e6e6e6"
