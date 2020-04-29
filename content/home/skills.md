@@ -22,13 +22,13 @@ subtitle = "Skills"
 
 [[feature]]
   icon = "code"
-  icon_pack = "fab"
+  icon_pack = "fas"
   name = "Technologies"
   description = "R, SQL, Git, Tableau"
   
 [[feature]]
   icon = "heart"
-  icon_pack = "fab"
+  icon_pack = "far"
   name = "Passion"
   description = "Data science"  
   
