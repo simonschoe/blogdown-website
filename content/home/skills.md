@@ -18,18 +18,18 @@ subtitle = "Skills"
   icon = "wpexplorer"
   icon_pack = "fab"
   name = "Analytics"
-  description = "Machine learning, statistical modeling, natural language processing, text mining, data visualization"
+  description = "Data Visualization, Machine Learning, Natural Language Processing, Statistical Modeling, Text Mining"
 
 [[feature]]
   icon = "code"
   icon_pack = "fas"
   name = "Technologies"
-  description = "R, SQL, Git, Tableau"
+  description = "R, Tableau, SQL, Git"
   
 [[feature]]
   icon = "heart"
   icon_pack = "far"
   name = "Passion"
-  description = "Data science"  
+  description = "Data Science, P2, P3"  
   
 +++
