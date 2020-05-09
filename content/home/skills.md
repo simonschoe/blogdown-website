@@ -6,7 +6,7 @@ active = true  # Activate this widget? true/false
 weight = 40  # Order that this section will appear.
 
 title = "Skills"
-subtitle = "Skills"
+subtitle = "\\n"
 
 # Showcase personal skills or business features.
 # 
@@ -17,19 +17,19 @@ subtitle = "Skills"
 [[feature]]
   icon = "wpexplorer"
   icon_pack = "fab"
-  name = "Analytics"
-  description = "Data Visualization, Machine Learning, Natural Language Processing, Statistical Modeling, Text Mining"
+  name = "Data Visualization, Machine Learning, Natural Language Processing, Statistical Modeling, Text Mining"
+  description = ""
 
 [[feature]]
   icon = "code"
   icon_pack = "fas"
-  name = "Technologies"
-  description = "R, Tableau, SQL, Git"
+  name = "R, Tableau, SQL, Git"
+  description = ""
   
 [[feature]]
   icon = "heart"
   icon_pack = "far"
-  name = "Passion"
-  description = "Data Science, P2, P3"  
+  name = "P1, P2, P3"
+  description = ""  
   
 +++
