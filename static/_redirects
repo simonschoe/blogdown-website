@@ -1,7 +1,7 @@
 # Redirects from what the browser requests to what we serve
 
-https://simonschoe.netlify.app/*		https://simonschoelzel.netlify.app/*
-http://simonschoe.netlify.app/*			https://simonschoelzel.netlify.app/*
+#https://simonschoe.netlify.app/*		https://simonschoelzel.netlify.app/*
+#http://simonschoe.netlify.app/*			https://simonschoelzel.netlify.app/*
 
 #https://simonschoelzel.netlify.app/*  	https://simon.schoelzel.rbind.io/:splat  301!
 #http://simonschoelzel.netlify.app/*  	https://simon.schoelzel.rbind.io/:splat  301!
