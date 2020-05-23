@@ -7,8 +7,7 @@ subtitle: "*A machine learning project concerned with estimating the future tran
 authors: ["simon"]
 tags: [Football Analytics, Transfer Fees, Player Popularity, Predictive Modelling, Regression]
 date: 2019-12-20
-slug: football_player_transfers
-
+featured: no
 
 # Summary. An optional shortened abstract.
 summary: A machine learning project concerned with estimating the future transfer fees of European football players realized in R.
