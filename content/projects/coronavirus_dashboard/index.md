@@ -6,7 +6,6 @@ title: >
 subtitle: "*A data visualization project concerned with the spread of the novel Coronavirus realized in R and Tableau.*"
 authors: ["simon"]
 tags: [Data Visualization, Coronavirus, Dashboard, Tableau]
-categories: [category A (R), category B (Tableau), category C]
 date: 2020-04-18
 slug: coronavirus_dashboard
 
