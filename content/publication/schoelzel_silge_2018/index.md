@@ -26,15 +26,7 @@ summary: "*Proceedings of the 41st Annual Congress of the European Accounting As
 
 tags: [Value-based management, Issuer rating, Downgrades, Upgrades, Event study]
 categories: []
-featured: true
-
-# Custom links (optional).
-#   Uncomment and edit lines below to show custom links.
-# links:
-# - name: Follow
-#   url: https://twitter.com
-#   icon_pack: fab
-#   icon: twitter
+featured: false
 
 url_pdf: "schoelzel_silge_2018.pdf"
 url_code:
