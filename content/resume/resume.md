@@ -6,7 +6,7 @@
 widget = "blank"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = true  # This file represents a page section.
 active = true # Activate this widget? true/false
-weight = 20  # Order that this section will appear.
+weight = 10  # Order that this section will appear.
 
 title = ""
 subtitle = ""
@@ -47,26 +47,38 @@ subtitle = ""
  css_class = ""
 +++
 
-
-
 ## Work Experience
 
-#### Position 1, Firm
-Date
+#### Research Assistant, University of Münster
+2020 – Present
 
 * Task
 * Task
 * Task
 
-#### Position 1, Firm
-Date
+#### Student Research Assistant & Instructor, University of Münster
+2015 – 2020
 
 * Task
 * Task
 * Task
 
-#### Position 1, Firm
-Date
+#### Intern, Bayer AG, Leverkusen
+2020
+
+* Task
+* Task
+* Task
+
+#### Intern, BASF Coatings GmbH, Münster
+2017
+
+* Task
+* Task
+* Task
+
+#### Intern, Miele & Cie. KG, Gütersloh
+2016
 
 * Task
 * Task
@@ -76,23 +88,19 @@ Date
 
 ## Education
 
-#### Position 1, Firm
-Date
+#### Doctoral Studies (PhD), University of Münster
+2020 – Present
 
-* Task
-* Task
-* Task
 
-#### Position 1, Firm
-Date
+#### M.Sc. in Accounting & Finance, University of Münster
+2017 – 2020
 
-* Task
-* Task
-* Task
+Thesis: Fields of Application for Text Mining in the Context of Communicated Digital Change – An Explorative Analysis
 
-#### Position 1, Firm
-Date
+#### Studies in Finance and Data Science, Copenhagen Business School
+2019
 
-* Task
-* Task
-* Task
+#### B.Sc. in Business Administration, University of Münster
+2014 – 2017
+
+Thesis: The Effects of Value-Based Management on Credit Rating Changes – An Empirical Analysis
