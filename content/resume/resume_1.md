@@ -34,7 +34,7 @@ date_format = "Jan 2006"
   location = "Münster, Germany"
   date_start = "2017-10-01"
   date_end = "2020-01-24"
-  description = """Thesis: Fields of Application for Text Mining in the Context of Communicated Digital Change – An Explorative Analysis"""
+  description = """**Thesis:** Fields of Application for Text Mining in the Context of Communicated Digital Change – An Explorative Analysis"""
 
 [[experience]]
   title = "Finance & Data Science (Exchange Semester)"
@@ -42,7 +42,7 @@ date_format = "Jan 2006"
   company_url = "https://www.cbs.dk/en"
   location = "Copenhagen, Denmark"
   date_start = "2019-08-15"
-  date_end = "2020-01-24"
+  date_end = "2019-12-20"
   description = ""
 
 [[experience]]
@@ -52,5 +52,5 @@ date_format = "Jan 2006"
   location = "Münster, Germany"
   date_start = "2014-04-01"
   date_end = "2017-05-26"
-  description = """Thesis: The Effects of Value-Based Management on Credit Rating Changes – An Empirical Analysis"""
+  description = """**Thesis:** The Effects of Value-Based Management on Credit Rating Changes – An Empirical Analysis"""
 +++
