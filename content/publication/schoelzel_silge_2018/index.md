@@ -5,7 +5,7 @@ title: >
   Market Reactions to Credit Rating Changes: The Impact of Using Value-Based Performance Measures
 authors:
 - simon
-- "[Lisa Silge]"
+- "[Lisa Silge](https://www.wiwi.uni-muenster.de/ctrl/lehrstuhl/alumni/dr-lisa-silge)"
 date: 2018-05-31
 doi: ""
 
