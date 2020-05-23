@@ -8,6 +8,7 @@ authors: ["simon"]
 tags: [Football Analytics, Transfer Fees, Player Popularity, Predictive Modelling, Regression]
 categories: [category A (R), category B (Tableau), category C]
 date: 2019-12-20
+slug: football_player_transfers
 
 
 # Summary. An optional shortened abstract.

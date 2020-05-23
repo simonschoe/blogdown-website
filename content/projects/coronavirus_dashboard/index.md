@@ -8,6 +8,7 @@ authors: ["simon"]
 tags: [Data Visualization, Coronavirus, Dashboard, Tableau]
 categories: [category A (R), category B (Tableau), category C]
 date: 2020-04-18
+slug: coronavirus_dashboard
 
 
 # Summary. An optional shortened abstract.
