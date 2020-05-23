@@ -22,21 +22,10 @@ bio: My research addresses the question of how to leverage data science and mach
 
 interests:
 - Accounting Data Analytics
-- Machine Learning and Statistics
+- Statistical Modelling
+- Machine Learning and Text Mining
 - Data Visualization
 - Education and Learning
-
-education:
-  courses:
-  - course: MSc, Accounting & Finance
-    institution: University of Münster
-    year: 2020
-  - course: Exchange, Data Science & Finance
-    institution: Copenhagen Business School
-    year: 2019
-  - course: BSc, Business Administration
-    institution: University of Münster
-    year: 2017
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/page-builder/#icons
@@ -52,11 +41,6 @@ social:
 - icon: linkedin
   icon_pack: fab
   link: https://www.linkedin.com/in/simon-schoelzel/
-# Link to a PDF of your resume/CV from the About widget.
-# To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
-# - icon: cv
-#   icon_pack: ai
-#   link: files/cv.pdf
 
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
