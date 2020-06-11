@@ -1,5 +1,5 @@
 ---
-title: "GDPR Fines - Exploratory Data Analysis"
+title: "GDPR Fines - Exploratory Data Analysis 22"
 date: 2020-06-11
 categories:
   - rstats
@@ -11,9 +11,9 @@ subtitle: ''
 summary: "Use tidymodels for unsupervised dimensionality reduction."
 featured: no
 image:
-  caption: ''
+  caption: 'Testing'
   focal_point: ''
-  preview_only: true
+  preview_only: no
 projects: []
 bibliography: references.bib
 csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl"
