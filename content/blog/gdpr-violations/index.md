@@ -504,7 +504,7 @@ gdpr_data %>%
     )
 ```
 
-<img src="analysis_files/figure-html/top10-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-html/top10-1.png" width="70%" style="display: block; margin: auto;" />
 
 Art. 83 GDPR: 
 
@@ -551,7 +551,7 @@ gdpr_data %>%
 > `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
-<img src="analysis_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 
@@ -591,7 +591,7 @@ gdpr_data %>%
     )
 ```
 
-<img src="analysis_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
 
 #which article was most frequently violated?
 - drop all fines for which no GDPR article is stated
@@ -634,7 +634,7 @@ gdpr_data %>%
     )
 ```
 
-<img src="analysis_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 Article that incurred the highes average fine
@@ -679,7 +679,7 @@ gdpr_data %>%
     )
 ```
 
-<img src="analysis_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ```r
@@ -717,6 +717,6 @@ gdpr_data %>%
     )
 ```
 
-<img src="analysis_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
 
 ### References
