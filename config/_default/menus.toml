@@ -8,6 +8,11 @@
   url = "research/"
   weight = 10
 
+  [[main]]
+  name = "Blogging"
+  url = "blog/"
+  weight = 15
+
 [[main]]
   name = "Projects"
   url = "projects/"
