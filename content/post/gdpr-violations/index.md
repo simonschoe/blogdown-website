@@ -1,5 +1,5 @@
 ---
-title: "Exploring GDPR Fines"
+title: "Exploring GDPR Fines - The Tidyverse Approach"
 author: Simon Schölzel
 date: 2020-06-11
 categories:
@@ -13,10 +13,10 @@ tags:
   - stringdist
   - ggplot2
 subtitle: ''
-summary: "In this blog post, I would like to take the current debate on data privacy and data security as an opportunity to dive into a dataset about monetary fines since the issuance of the EU-GDPR."
+summary: "Data Privacy and Data Security -- two espoused concepts that gain substantial traction in the current times of Covid-19."
 featured: no
 image:
-  caption: '[Photo by Scott Webbon Pexels](https://www.pexels.com/de-de/foto/ausrustung-burgersteig-gehweg-mauer-430208/)'
+  caption: '[Photo by Scott Webb on Pexels](https://www.pexels.com/de-de/foto/ausrustung-burgersteig-gehweg-mauer-430208/)'
   focal_point: ''
   preview_only: no
 projects: []
