@@ -1,13 +1,20 @@
 ---
 title: "GDPR Fines - Exploratory Data Analysis"
 date: 2020-06-11
-output:
-  html_document:
-    toc: true
-    toc_float: true
-    df_print: paged
-    keep_md: yes
-  pdf_document: default
+categories:
+  - rstats
+  - tidymodels
+tags:
+  - rstats
+  - tidymodels
+subtitle: ''
+summary: "Use tidymodels for unsupervised dimensionality reduction."
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: true
+projects: []
 bibliography: references.bib
 csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl"
 ---
