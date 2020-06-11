@@ -1,19 +1,22 @@
 ---
-title: "GDPR Fines - Exploratory Data Analysis"
+title: "Exploring GDPR Fines"
 author: Simon Schölzel
 date: 2020-06-11
-slug: gdpr-violations
 categories:
-  - rstats
-  - tidymodels
+  - rmarkdown
+  - rvest
+  - stringdist
+  - ggplot2
 tags:
-  - rstats
-  - tidymodels
+  - rmarkdown
+  - rvest
+  - stringdist
+  - ggplot2
 subtitle: ''
-summary: "GDPR subtitle"
+summary: "In this blog post, I would like to take the current debate on data privacy and data security as an opportunity to dive into a dataset about monetary fines since the issuance of the EU-GDPR."
 featured: no
 image:
-  caption: 'Testttt'
+  caption: '[Photo by Scott Webb](https://unsplash.com/photos/yekGLpc3vro)
   focal_point: ''
   preview_only: no
 projects: []
