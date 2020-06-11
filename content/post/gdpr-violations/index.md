@@ -16,7 +16,7 @@ subtitle: ''
 summary: "In this blog post, I would like to take the current debate on data privacy and data security as an opportunity to dive into a dataset about monetary fines since the issuance of the EU-GDPR."
 featured: no
 image:
-  caption: '[Photo by Scott Webb](https://unsplash.com/photos/yekGLpc3vro)'
+  caption: '[Photo by Scott Webbon Pexels](https://www.pexels.com/de-de/foto/ausrustung-burgersteig-gehweg-mauer-430208/)'
   focal_point: ''
   preview_only: no
 projects: []
