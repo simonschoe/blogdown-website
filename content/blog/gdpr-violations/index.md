@@ -4,9 +4,7 @@ date: 2020-06-11
 categories:
   - rstats
   - tidymodels
-tags:
-  - rstats
-  - tidymodels
+tags: [rstats, tidymodels]
 subtitle: ''
 summary: "Use tidymodels for unsupervised dimensionality reduction."
 featured: no
