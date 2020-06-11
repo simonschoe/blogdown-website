@@ -384,7 +384,7 @@ gdpr_data %>%
 </table>
 
 Plot1
-<img src="analysis_files/figure-html/plot1-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-html/plot1-1.png" width="70%" style="display: block; margin: auto;" />
 
 Art. 83 GDPR: 
 
@@ -394,10 +394,10 @@ Nr. 4: 10m€ or 2% of total revenue
 Nr. 5: 20m€ or 4% of total revenue
 
 Plot2
-<img src="analysis_files/figure-html/plot2-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-html/plot2-1.png" width="70%" style="display: block; margin: auto;" />
 
 Plot3
-<img src="analysis_files/figure-html/plot3-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-html/plot3-1.png" width="70%" style="display: block; margin: auto;" />
 
 #which article was most frequently violated?
 - drop all fines for which no GDPR article is stated
@@ -405,16 +405,16 @@ Plot3
 - poland and croatia, almost no activity
 
 Plot4
-<img src="analysis_files/figure-html/plot4-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-html/plot4-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 Article that incurred the highes average fine
 Compute average fine by dividng by the number of articles involved in the fine
 
 Plot5
-<img src="analysis_files/figure-html/plot5-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-html/plot5-1.png" width="70%" style="display: block; margin: auto;" />
 
 Plot6
-<img src="analysis_files/figure-html/plot6-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-html/plot6-1.png" width="70%" style="display: block; margin: auto;" />
 
 ### References
