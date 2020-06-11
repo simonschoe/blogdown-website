@@ -15,8 +15,6 @@ image:
   caption: ''
   focal_point: ''
   preview_only: true
-output:
-  keep_md: yes
 bibliography: references.bib
 csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl"
 ---
