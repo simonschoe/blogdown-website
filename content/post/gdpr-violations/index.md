@@ -1,17 +1,20 @@
 ---
 title: "GDPR Fines - Exploratory Data Analysis"
+author: Simon Schölzel
 date: 2020-06-11
 categories:
   - rstats
   - tidymodels
-tags: [rstats, tidymodels]
+tags:
+  - rstats
+  - tidymodels
 subtitle: ''
-summary: "Use tidymodels for unsupervised dimensionality reduction."
+summary: "GDPR subtitle"
 featured: no
 image:
-  caption: ''
+  caption: 'Testttt'
   focal_point: ''
-  preview_only: true
+  preview_only: no
 projects: []
 bibliography: references.bib
 csl: "https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl"
