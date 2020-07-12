@@ -26,7 +26,7 @@ tags:
 - rvest
 - stringdist
 - ggplot2
-title: 'Exploring GDPR Fines - The Tidy Approach'
+title: 'Exploring GDPR Fines - The Tidy Approach (old)'
 ---
 
 Data Privacy and Data Security, two espoused concepts that gain
@@ -587,7 +587,7 @@ gdpr_data %>%
     )
 ```
 
-<img src="post/index_files/figure-markdown/plot6-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-markdown/plot6-1.png" width="70%" style="display: block; margin: auto;" />
 
 Either way, the upcoming month in the GDPR prosecution domain promise to
 be rather calm -- one reason more for me to finally take a (hopefully)
