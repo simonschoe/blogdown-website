@@ -326,6 +326,9 @@ gdpr_data %>%
 
 Looking at the countries which have imposed the biggest fines on aggregate, it is remarkable for the [German 'Aluhut'](https://de.wikipedia.org/wiki/Aluhut) to renounce the lead and hand the gold and silver medal to France and Italy.
 
+<img src="https://tenor.com/view/alex-jones-gif-9848358" width="70%" style="display: block; margin: auto;" />
+
+
 ```r
 gdpr_data %>%
   drop_na(price) %>% 
