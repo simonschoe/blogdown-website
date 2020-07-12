@@ -63,9 +63,13 @@ ignoreFiles = ["\\.ipynb$", ".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "
   quality = 90
   anchor = "smart"  # Anchor for cropping. Options include Smart and Center.
 
-# Taxonomies.
 [taxonomies]
   tag = "tags"
   category = "categories"
   publication_type = "publication_types"
   author = "authors"
+
+[frontmatter]
+  date = ["publishDate", ":filename", "date", ":fileModTime"]
+  lastmod = ["publishDate", ":filename", "date", ":fileModTime"]
+  publishDate = ["lastmod", ":fileModTime", "date", "publishDate"]
