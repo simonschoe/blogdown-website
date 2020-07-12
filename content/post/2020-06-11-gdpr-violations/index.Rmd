@@ -2,10 +2,10 @@
 title: "Exploring GDPR Fines - The Tidy Approach"
 author: "Simon Schölzel"
 date: '2020-06-11'
-slug: gdpr-violations
 output:
-  md_document:
-    variant: markdown 
+  html_document:
+    keep_md: true
+slug: gdpr-violations
 image:
   caption: '[Photo by Scott Webb on Pexels](https://www.pexels.com/de-de/foto/ausrustung-burgersteig-gehweg-mauer-430208/)'
   focal_point: ''
