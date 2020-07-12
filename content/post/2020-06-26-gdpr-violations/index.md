@@ -1,5 +1,5 @@
 ---
-title: "Exploring GDPR Fines - The Tidyverse Approach"
+title: "old post"
 author: Simon Schölzel
 date: 2020-06-11
 output:
