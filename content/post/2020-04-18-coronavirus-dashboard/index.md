@@ -1,3 +1,26 @@
+---
+title: "Coronavirus (SARS-CoV-2) Dashboard based on JHU CSSE data"
+author: Simon Schölzel
+date: '2020-04-18'
+slug: coronavirus-dashboard
+output:
+  md_document:
+    preserve_yaml: true
+categories:
+- Tableau
+tags:
+- Tableau
+subtitle: ''
+summary: 'A data visualization project concerned with the spread of the novel Coronavirus realized in R and Tableau.'
+lastmod: '2020-04-18T20:46:05+02:00'
+featured: no
+image:
+  caption: '[Photo by Markus Spiske on Pexels](https://www.pexels.com/de-de/foto/nummern-notfall-alarm-warnung-3970330/)'
+  focal_point: ''
+  preview_only: true
+projects: []
+---
+
 This is my version of a Coronavirus dashboard, designed entirely using
 the data visualization tool Tableau. The dark theme and layout is
 obviously inspired by the well-know dashboards provided by the [Robert
