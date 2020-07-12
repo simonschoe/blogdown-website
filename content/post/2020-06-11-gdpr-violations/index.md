@@ -3,6 +3,9 @@ title: "Exploring GDPR Fines - The Tidy Approach"
 author: Simon Schölzel
 date: '2020-06-11'
 slug: gdpr-violations
+output:
+  md_document:
+    preserve_yaml: true
 categories:
 - Rmarkdown
 - rvest
@@ -15,13 +18,12 @@ tags:
 - ggplot2
 subtitle: ''
 summary: 'Data Privacy and Data Security, two espoused concepts that gain substantial traction in the current times of Covid-19.'
-authors: []
 lastmod: '2020-06-11T20:46:05+02:00'
 featured: no
 image:
   caption: '[Photo by Scott Webb on Pexels](https://www.pexels.com/de-de/foto/ausrustung-burgersteig-gehweg-mauer-430208/)'
   focal_point: ''
-  preview_only: no
+  preview_only: true
 projects: []
 ---
 
@@ -76,18 +78,30 @@ In total, 339 violations are categorized by *PrivacyAffairs* as of the
 day of this blogpost (2020-07-12). I randomly sample five observations
 to get a first overview of the dataset.
 
-    >    id           name  price                                                                      authority       date
-    > 1   6        Romania  20000 Romanian National Supervisory Authority for Personal Data Processing (ANSPDCP) 10/09/2019
-    > 2  86 United Kingdom      0                                                       Information Commissioner 07/10/2019
-    > 3 113          Spain    900                                       Spanish Data Protection Authority (AEPD) 11/07/2019
-    > 4  87 United Kingdom  80000                                                       Information Commissioner 07/16/2019
-    > 5 306         Norway 283000                                 Norwegian Supervisory Authority (Datatilsynet) 05/19/2020
-    >                                   controller                  articleViolated
-    > 1                           Vreau Credit SRL       Art. 32 GDPR, Art. 33 GDPR
-    > 2 Driver and Vehicle Licensing Agency (DVLA)                          Unknown
-    > 3                       TODOTECNICOS24H S.L.                     Art. 13 GDPR
-    > 4                    Life at Parliament View         Data Protection Act 2018
-    > 5                        Bergen Municipality Art. 5 (1) f) GDPR, Art. 32 GDPR
+    >    id           name  price
+    > 1   6        Romania  20000
+    > 2  86 United Kingdom      0
+    > 3 113          Spain    900
+    > 4  87 United Kingdom  80000
+    > 5 306         Norway 283000
+    >                                                                        authority
+    > 1 Romanian National Supervisory Authority for Personal Data Processing (ANSPDCP)
+    > 2                                                       Information Commissioner
+    > 3                                       Spanish Data Protection Authority (AEPD)
+    > 4                                                       Information Commissioner
+    > 5                                 Norwegian Supervisory Authority (Datatilsynet)
+    >         date                                 controller
+    > 1 10/09/2019                           Vreau Credit SRL
+    > 2 07/10/2019 Driver and Vehicle Licensing Agency (DVLA)
+    > 3 11/07/2019                       TODOTECNICOS24H S.L.
+    > 4 07/16/2019                    Life at Parliament View
+    > 5 05/19/2020                        Bergen Municipality
+    >                    articleViolated
+    > 1       Art. 32 GDPR, Art. 33 GDPR
+    > 2                          Unknown
+    > 3                     Art. 13 GDPR
+    > 4         Data Protection Act 2018
+    > 5 Art. 5 (1) f) GDPR, Art. 32 GDPR
     >                                                                      type
     > 1 Failure to implement sufficient measures to ensure information security
     > 2                                            Non-compliance (Data Breach)
@@ -146,17 +160,17 @@ strings of length &gt; 3 (otherwise the minimum-osa threshold becomes
 redundant).
 
     > # A tibble: 9 x 5
-    >   ent_a                              ent_b                                osa  id.a  id.b
-    >   <chr>                              <chr>                              <dbl> <int> <int>
-    > 1 Telecommunication Service Provider Telecommunication service provider     2     7    48
-    > 2 A mayor                            Mayor                                  3    32   100
-    > 3 A.P. EOOD                          L.E. EOOD                              2    45   204
-    > 4 A.P. EOOD                          T.K. EOOD                              2    45   205
-    > 5 A bank                             Bank                                   3    50    55
-    > 6 A bank                             bank                                   2    50   225
-    > 7 Bank                               bank                                   1    55   225
-    > 8 Vodafone Espana                    Vodafone España                        1    64   156
-    > 9 L.E. EOOD                          T.K. EOOD                              2   204   205
+    >   ent_a                          ent_b                           osa  id.a  id.b
+    >   <chr>                          <chr>                         <dbl> <int> <int>
+    > 1 Telecommunication Service Pro~ Telecommunication service pr~     2     7    48
+    > 2 A mayor                        Mayor                             3    32   100
+    > 3 A.P. EOOD                      L.E. EOOD                         2    45   204
+    > 4 A.P. EOOD                      T.K. EOOD                         2    45   205
+    > 5 A bank                         Bank                              3    50    55
+    > 6 A bank                         bank                              2    50   225
+    > 7 Bank                           bank                              1    55   225
+    > 8 Vodafone Espana                Vodafone España                   1    64   156
+    > 9 L.E. EOOD                      T.K. EOOD                         2   204   205
 
     gdpr_data <- gdpr_data %>% 
       mutate(across(entity,
@@ -171,18 +185,30 @@ redundant).
 
 Finally, let’s have a look at the cleaned data.
 
-    >    id        country  price                                                                      authority       date
-    > 1   6        Romania  20000 Romanian National Supervisory Authority for Personal Data Processing (ANSPDCP) 2019-10-09
-    > 2  86 United Kingdom     NA                                                       Information Commissioner 2019-07-10
-    > 3 113          Spain    900                                       Spanish Data Protection Authority (AEPD) 2019-11-07
-    > 4  87 United Kingdom  80000                                                       Information Commissioner 2019-07-16
-    > 5 306         Norway 283000                                 Norwegian Supervisory Authority (Datatilsynet) 2020-05-19
-    >                                       entity                        violation
-    > 1                           Vreau Credit SRL       Art. 32 GDPR, Art. 33 GDPR
-    > 2 Driver and Vehicle Licensing Agency (DVLA)                          Unknown
-    > 3                       TODOTECNICOS24H S.L.                     Art. 13 GDPR
-    > 4                    Life at Parliament View         Data Protection Act 2018
-    > 5                        Bergen Municipality Art. 5 (1) f) GDPR, Art. 32 GDPR
+    >    id        country  price
+    > 1   6        Romania  20000
+    > 2  86 United Kingdom     NA
+    > 3 113          Spain    900
+    > 4  87 United Kingdom  80000
+    > 5 306         Norway 283000
+    >                                                                        authority
+    > 1 Romanian National Supervisory Authority for Personal Data Processing (ANSPDCP)
+    > 2                                                       Information Commissioner
+    > 3                                       Spanish Data Protection Authority (AEPD)
+    > 4                                                       Information Commissioner
+    > 5                                 Norwegian Supervisory Authority (Datatilsynet)
+    >         date                                     entity
+    > 1 2019-10-09                           Vreau Credit SRL
+    > 2 2019-07-10 Driver and Vehicle Licensing Agency (DVLA)
+    > 3 2019-11-07                       TODOTECNICOS24H S.L.
+    > 4 2019-07-16                    Life at Parliament View
+    > 5 2020-05-19                        Bergen Municipality
+    >                          violation
+    > 1       Art. 32 GDPR, Art. 33 GDPR
+    > 2                          Unknown
+    > 3                     Art. 13 GDPR
+    > 4         Data Protection Act 2018
+    > 5 Art. 5 (1) f) GDPR, Art. 32 GDPR
     >                                                                      type
     > 1 Failure to implement sufficient measures to ensure information security
     > 2                                            Non-compliance (Data Breach)
@@ -199,9 +225,10 @@ Finally, let’s have a look at the cleaned data.
 Now let’s briefly validate the integrity of the scraped dataset.
 
     > # A tibble: 1 x 11
-    >      id picture country price authority  date entity violation  type source summary
-    >   <int>   <int>   <int> <int>     <int> <int>  <int>     <int> <int>  <int>   <int>
-    > 1     0       0       0    11         0    15     38         0     2      0       0
+    >      id picture country price authority  date entity violation  type source
+    >   <int>   <int>   <int> <int>     <int> <int>  <int>     <int> <int>  <int>
+    > 1     0       0       0    11         0    15     38         0     2      0
+    > # ... with 1 more variable: summary <int>
 
 And indeed, a quick glance at the missing values per feature reveals
 numerous missing values for the `price` (3.24%), `date` (4.42%) and
@@ -228,10 +255,14 @@ effect.
       select(-summary, -picture) %>% 
       filter(date == min(date, na.rm = TRUE))
 
-    >   id  country price                                                authority       date entity                       violation
-    > 1 78 Bulgaria   500 Bulgarian Commission for Personal Data Protection (KZLD) 2018-05-12   Bank Art. 5 (1) b) GDPR, Art. 6 GDPR
-    >                                                   type                                       source
-    > 1 Non-compliance with lawful basis for data processing https://www.cpdp.bg/?p=element_view&aid=2152
+    >   id  country price                                                authority
+    > 1 78 Bulgaria   500 Bulgarian Commission for Personal Data Protection (KZLD)
+    >         date entity                       violation
+    > 1 2018-05-12   Bank Art. 5 (1) b) GDPR, Art. 6 GDPR
+    >                                                   type
+    > 1 Non-compliance with lawful basis for data processing
+    >                                         source
+    > 1 https://www.cpdp.bg/?p=element_view&aid=2152
 
 Having identified the first ever fine, the natural question arises:
 Which are the *biggest* fines ever fined? With almost double the fee
@@ -249,28 +280,50 @@ public bodies.
       select(-summary, -picture) %>% 
       slice_max(order_by = price, n = 10)
 
-    >     id  country    price                                                                      authority       date
-    > 1   66   France 50000000                                        French Data Protection Authority (CNIL) 2019-01-21
-    > 2  200    Italy 27800000                                    Italian Data Protection Authority (Garante) 2020-02-01
-    > 3   79  Austria 18000000                                       Austrian Data Protection Authority (DSB) 2019-10-23
-    > 4   82  Germany 14500000                                Data Protection Authority of Baden-Wuerttemberg 2019-10-30
-    > 5  138  Germany  9550000 The Federal Commissioner for Data Protection and Freedom of Information (BfDI) 2019-12-09
-    > 6  189    Italy  8500000                                    Italian Data Protection Authority (Garante) 2020-01-17
-    > 7  237   Sweden  7000000                                            Data Protection Authority of Sweden 2020-03-11
-    > 8  190    Italy  3000000                                    Italian Data Protection Authority (Garante) 2020-01-17
-    > 9   15 Bulgaria  2600000                                  Data Protection Commission of Bulgaria (KZLD) 2019-08-28
-    > 10 322  Germany  1240000                                Data Protection Authority of Baden-Wuerttemberg 2020-06-30
-    >                         entity                                                         violation
-    > 1                  Google Inc. Art. 13 GDPR, Art. 14 GDPR, Art. 6 GDPR, Art. 4 GDPR, Art. 5 GDPR
-    > 2       TIM - Telecom Provider                                                   Art. 58(2) GDPR
-    > 3                Austrian Post                                   Art. 5 (1) a) GDPR, Art. 6 GDPR
-    > 4           Deutsche Wohnen SE                                         Art. 5 GDPR, Art. 25 GDPR
-    > 5             1&1 Telecom GmbH                                                      Art. 32 GDPR
-    > 6               Eni Gas e Luce              Art. 5 GDPR, Art. 6 GDPR, Art. 17 GDPR, Art. 21 GDPR
-    > 7                       Google                            Art. 5 GDPR, Art. 6 GDPR, Art. 17 GDPR
-    > 8               Eni Gas e Luce                                          Art. 5 GDPR, Art. 6 GDPR
-    > 9      National Revenue Agency                                                      Art. 32 GDPR
-    > 10 Allgemeine Ortskrankenkasse                            Art. 5 GDPR, Art. 6 GDPR, Art. 32 GDPR
+    >     id  country    price
+    > 1   66   France 50000000
+    > 2  200    Italy 27800000
+    > 3   79  Austria 18000000
+    > 4   82  Germany 14500000
+    > 5  138  Germany  9550000
+    > 6  189    Italy  8500000
+    > 7  237   Sweden  7000000
+    > 8  190    Italy  3000000
+    > 9   15 Bulgaria  2600000
+    > 10 322  Germany  1240000
+    >                                                                         authority
+    > 1                                         French Data Protection Authority (CNIL)
+    > 2                                     Italian Data Protection Authority (Garante)
+    > 3                                        Austrian Data Protection Authority (DSB)
+    > 4                                 Data Protection Authority of Baden-Wuerttemberg
+    > 5  The Federal Commissioner for Data Protection and Freedom of Information (BfDI)
+    > 6                                     Italian Data Protection Authority (Garante)
+    > 7                                             Data Protection Authority of Sweden
+    > 8                                     Italian Data Protection Authority (Garante)
+    > 9                                   Data Protection Commission of Bulgaria (KZLD)
+    > 10                                Data Protection Authority of Baden-Wuerttemberg
+    >          date                      entity
+    > 1  2019-01-21                 Google Inc.
+    > 2  2020-02-01      TIM - Telecom Provider
+    > 3  2019-10-23               Austrian Post
+    > 4  2019-10-30          Deutsche Wohnen SE
+    > 5  2019-12-09            1&1 Telecom GmbH
+    > 6  2020-01-17              Eni Gas e Luce
+    > 7  2020-03-11                      Google
+    > 8  2020-01-17              Eni Gas e Luce
+    > 9  2019-08-28     National Revenue Agency
+    > 10 2020-06-30 Allgemeine Ortskrankenkasse
+    >                                                            violation
+    > 1  Art. 13 GDPR, Art. 14 GDPR, Art. 6 GDPR, Art. 4 GDPR, Art. 5 GDPR
+    > 2                                                    Art. 58(2) GDPR
+    > 3                                    Art. 5 (1) a) GDPR, Art. 6 GDPR
+    > 4                                          Art. 5 GDPR, Art. 25 GDPR
+    > 5                                                       Art. 32 GDPR
+    > 6               Art. 5 GDPR, Art. 6 GDPR, Art. 17 GDPR, Art. 21 GDPR
+    > 7                             Art. 5 GDPR, Art. 6 GDPR, Art. 17 GDPR
+    > 8                                           Art. 5 GDPR, Art. 6 GDPR
+    > 9                                                       Art. 32 GDPR
+    > 10                            Art. 5 GDPR, Art. 6 GDPR, Art. 32 GDPR
     >                                                                       type
     > 1                                                                  Several
     > 2                           Non-cooperation with Data Protection Authority
@@ -340,7 +393,7 @@ No. 5](https://gdpr.eu/article-83-conditions-for-imposing-administrative-fines/
           axis.title = element_text(size = font_size_other)
         )
 
-<img src="gdpr-violations_files/figure-markdown_strict/plot1-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-markdown_strict/plot1-1.png" width="70%" style="display: block; margin: auto;" />
 
 Extending the EDA to the whole landscape of fines illustrates that the
 very large fines (colourized in the figure) are indeed rather rare. The
@@ -393,7 +446,7 @@ processes. *(Note that fees are plotted on the log-scale)*
           )
         )
 
-<img src="gdpr-violations_files/figure-markdown_strict/plot2-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-markdown_strict/plot2-1.png" width="70%" style="display: block; margin: auto;" />
 
 Looking at the countries which have imposed the biggest fines on
 aggregate, it is remarkable for the [German
@@ -434,7 +487,7 @@ hand the gold and silver medal to France and Italy.
           axis.title = element_text(size = font_size_other)
         )
 
-<img src="gdpr-violations_files/figure-markdown_strict/plot3-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-markdown_strict/plot3-1.png" width="70%" style="display: block; margin: auto;" />
 
 Further, I am curious which articles were violated most frequently.
 Therefore, I look at the subset of fines for which the violated GDPR
@@ -480,7 +533,7 @@ those articles for almost any country present in the dataset.
           axis.title = element_text(size = font_size_other)
         )
 
-<img src="gdpr-violations_files/figure-markdown_strict/plot4-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-markdown_strict/plot4-1.png" width="70%" style="display: block; margin: auto;" />
 
 Shifting the view a little, and asking the question which article
 incurred the highest average fine, we again find article 5, 6 and 32 on
@@ -532,7 +585,7 @@ entities…
           axis.title = element_text(size = font_size_other)
         )
 
-<img src="gdpr-violations_files/figure-markdown_strict/plot5-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-markdown_strict/plot5-1.png" width="70%" style="display: block; margin: auto;" />
 
 Finally, I am also curious about the distribution of penalties
 throughout the year. Using the `coord_polar()` function to transform the
@@ -577,7 +630,7 @@ potential violations.
           legend.position = "right"
         )
 
-<img src="gdpr-violations_files/figure-markdown_strict/plot6-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="index_files/figure-markdown_strict/plot6-1.png" width="70%" style="display: block; margin: auto;" />
 
 Either way, the upcoming month in the GDPR prosecution domain promise to
 be rather calm – one reason more for me to finally take a (hopefully)
