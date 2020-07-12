@@ -3,9 +3,6 @@ title: "Exploring GDPR Fines - The Tidy Approach"
 author: Simon Schölzel
 date: '2020-06-11'
 slug: gdpr-violations
-output:
-  html_document:
-    keep_md: true
 categories:
 - Rmarkdown
 - rvest
@@ -285,8 +282,8 @@ gdpr_data %>%
 
 Looking at the countries which have imposed the biggest fines on aggregate, it is remarkable for the [German 'Aluhut'](https://de.wikipedia.org/wiki/Aluhut) to renounce the lead and hand the gold and silver medal to France and Italy.
 
-```{r echo = FALSE}
-knitr::include_graphics("https://tenor.com/view/alex-jones-gif-9848358")
+```{r, echo = FALSE, fig.width = 3, fig.asp = 0.618}
+knitr::include_graphics("https://thumbs.gfycat.com/EvergreenRemarkableFowl-max-1mb.gif")
 ```
 
 ```{r plot3}
