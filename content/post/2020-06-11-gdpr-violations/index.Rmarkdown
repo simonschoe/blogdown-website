@@ -4,9 +4,8 @@ author: Simon Schölzel
 date: '2020-06-11'
 slug: gdpr-violations
 output:
-  md_document:
-    variant: markdown
-    preserve_yaml: true
+  html_document:
+    keep_md: true
 categories:
 - Rmarkdown
 - rvest
@@ -87,7 +86,8 @@ set.seed(11062020)
 
 gdpr_data %>% 
   select(-summary, -picture) %>% 
-  slice_sample(n = 5)
+  slice_sample(n = 5) %>% 
+  mutate(across(where(is.character), str_trunc, 25))
 ```
 
 ### Data Cleaning
@@ -149,7 +149,8 @@ set.seed(11062020)
 
 gdpr_data %>% 
   select(-summary, -picture) %>% 
-  slice_sample(n = 5)
+  slice_sample(n = 5) %>% 
+  mutate(across(where(is.character), str_trunc, 25))
 ```
 
 Now let's briefly validate the integrity of the scraped dataset.
@@ -186,7 +187,8 @@ Finally, the cleaned data allows for some interesting exploratory data analyses.
 ```{r top}
 gdpr_data %>% 
   select(-summary, -picture) %>% 
-  filter(date == min(date, na.rm = TRUE))
+  filter(date == min(date, na.rm = TRUE)) %>% 
+  mutate(across(where(is.character), str_trunc, 25))
 ```
 
 Having identified the first ever fine, the natural question arises: Which are the *biggest* fines ever fined?
@@ -194,7 +196,8 @@ With almost double the fee compared to the second place, Google takes the throne
 ```{r top10}
 gdpr_data %>%
   select(-summary, -picture) %>% 
-  slice_max(order_by = price, n = 10)
+  slice_max(order_by = price, n = 10) %>% 
+  mutate(across(where(is.character), str_trunc, 25))
 ```
 
 Altogether, the 10 million € has only been cracked by five individual entities so far. Given that [Art. 83 GDPR No. 4](https://gdpr.eu/article-83-conditions-for-imposing-administrative-fines/) explicitely uses the 10 million € threshold (or alternatively 2% of total revenues) as whip to emphasize the potential consequences of a violation, it appears that most firms have not yet stressed this limit -- and correspondingly also most firms have not yet stressed the even more extreme limit of 20 million € specified in [Art. 83 GDPR No. 5](https://gdpr.eu/article-83-conditions-for-imposing-administrative-fines/).
