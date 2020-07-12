@@ -4,8 +4,9 @@ author: Simon Schölzel
 date: '2020-06-11'
 slug: gdpr-violations
 output:
-  html_document:
-    keep_md: true
+  md_document:
+    variant: markdown
+    preserve_yaml: true
 categories:
 - Rmarkdown
 - rvest
@@ -23,7 +24,7 @@ featured: no
 image:
   caption: '[Photo by Scott Webb on Pexels](https://www.pexels.com/de-de/foto/ausrustung-burgersteig-gehweg-mauer-430208/)'
   focal_point: ''
-  preview_only: true
+  preview_only: false
 projects: []
 ---
 

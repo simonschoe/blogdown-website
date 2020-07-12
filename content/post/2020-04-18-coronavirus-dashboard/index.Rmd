@@ -5,6 +5,7 @@ date: '2020-04-18'
 slug: coronavirus-dashboard
 output:
   md_document:
+    variant: markdown
     preserve_yaml: true
 categories:
 - Tableau
@@ -17,7 +18,7 @@ featured: no
 image:
   caption: '[Photo by Markus Spiske on Pexels](https://www.pexels.com/de-de/foto/nummern-notfall-alarm-warnung-3970330/)'
   focal_point: ''
-  preview_only: true
+  preview_only: false
 projects: []
 ---
 
