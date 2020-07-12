@@ -38,4 +38,4 @@ __________
 
 **R code** available on [Github](https://github.com/simonschoe/project_player_transfers).
 
-**Project paper** available under this [Link](https://simonschoelzel.rbind.io/files/football-player-transfers.pdf).
+**Project paper** available under this [Link](/files/football-player-transfers.pdf).
