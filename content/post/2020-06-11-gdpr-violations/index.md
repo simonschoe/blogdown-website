@@ -404,7 +404,7 @@ gdpr_data %>%
     )
 ```
 
-<img src="index_files/figure-html/plot4-1.png" width="70%" />
+<img src="index_files/figure-html/plot4-1.png" width="70%" style="display: block; margin: auto;" />
 
 Shifting the view a little, and asking the question which article incurred the highest average fine, we again find article 5, 6 and 32 on the front spots. For this plot, I joined the data with the respective article titles to give more meaning to the numbers themselves. Moreover, I assumed that a fine relates proportionally to all articles mentioned in the respective case by allocating the same share to each article involved in the fine.
 Strangely, one or more violations of [Art. 58 GDPR](https://gdpr.eu/article-58-supervisory-authority-investigative-powers/), titled 'Powers', supposedly lead to substantial penalties -- strange in the sense that the contents of the article rather specifies the investigative powers of the supervisory authority, rather than explicitely regulating the data-related practices of the economic entities...
