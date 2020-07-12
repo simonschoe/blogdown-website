@@ -16,7 +16,7 @@ tags:
 subtitle: ''
 summary: 'Data Privacy and Data Security, two espoused concepts that gain substantial traction in the current times of Covid-19.'
 authors: []
-lastmod: '2020-06-12T20:46:05+02:00'
+lastmod: '2020-06-11T20:46:05+02:00'
 featured: no
 image:
   caption: '[Photo by Scott Webb on Pexels](https://www.pexels.com/de-de/foto/ausrustung-burgersteig-gehweg-mauer-430208/)'
