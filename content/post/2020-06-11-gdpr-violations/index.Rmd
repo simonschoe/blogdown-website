@@ -1,5 +1,5 @@
 ---
-title: "Exploring GDPR Fines - The Tidy Approach"
+title: "Exploring GDPR Fines - The Tidy Approach2"
 author: Simon Schölzel
 date: '2020-06-11'
 categories:

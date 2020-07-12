@@ -1,0 +1,43 @@
+---
+title: "Coronavirus (SARS-CoV-2) Dashboard based on JHU CSSE data"
+author: Simon Schölzel
+date: '2020-04-18'
+slug: coronavirus-dashboard
+output:
+  md_document:
+    variant: markdown
+    preserve_yaml: true
+categories:
+- Tableau
+tags:
+- Tableau
+subtitle: ''
+summary: 'A data visualization project concerned with the spread of the novel Coronavirus realized in R and Tableau.'
+lastmod: '2020-04-18T20:46:05+02:00'
+featured: no
+image:
+  caption: '[Photo by Markus Spiske on Pexels](https://www.pexels.com/de-de/foto/nummern-notfall-alarm-warnung-3970330/)'
+  focal_point: ''
+  preview_only: false
+projects: []
+---
+
+
+
+<p>This is my version of a Coronavirus dashboard, designed entirely using the data visualization tool Tableau. The dark theme and layout is obviously inspired by the well-know dashboards provided by the <a href="https://experience.arcgis.com/experience/478220a4c454480e823b17327b2bf1d4">Robert Koch-Institut</a> respectively the <a href="https://coronavirus.jhu.edu/map.html">Johns Hopkins Coronavirus Resource Center</a>.</p>
+<p>The data dataset is drawn from three different sources:
+- SARS-CoV-2 data provided by the <a href="https://github.com/CSSEGISandData/COVID-19">JHU CSSE</a>,
+- Population data provided by <a href="https://data.worldbank.org/indicator/sp.pop.totl">The World Bank</a> for the year 2018,
+- Governmental intervention data provided by <a href="https://www.acaps.org/covid19-government-measures-dataset">ACAPS</a>. Thanks to <a href="https://joachim-gassen.github.io/2020/03/merge-covid-19-data-with-governmental-interventions-data/">Joachim Gassen</a> for this additional idea.</p>
+<p>The data in <code>R</code> and cleaned using the tools provided in <code>tidyverse</code> R-package collection. Country names are standardized using the regex-parser implemented in the <code>passport</code> R-package. In addition to the features contained in the merged dataset, the following features have been generated:
+- <code>Total Closed Cases</code>, <code>Total Active Cases</code>,
+- <code>Incremental Confirmed Cases</code>, <code>Incremental Recovered Cases</code>, <code>Incremental Dead Cases</code>, <code>Incremental Closed Cases</code>, <code>Incremental Active Cases</code>,
+- the <code>log</code> of each all total and incremental termed features,
+- the <code>Infection-Recovery-Ratio</code> computed as <code>Total Confirmed Cases</code> over <code>Total Recovered Cases</code>,
+- the <code>Recovery-Death-Ratio</code> computed as <code>Total Recovered Cases</code> over <code>Total Dead Cases</code>,
+- the <code>Active-Closed-Ratio</code> computed as <code>Total Active Cases</code> over <code>Total Closed Cases</code>,
+- the version of the case fatality rate (CFR) computed as the <code>Total Dead Cases</code> relative to the <code>Total Confirmed Cases</code> (<em>CFR1</em>), the sum of <code>Total Recovered Cases</code> and <code>Total Dead Cases</code> (<em>CFR2</em>) respectively <code>Total Confirmed Cases</code> at <code>t-8</code> (<em>CFR3</em>) with eight assumed to be the average incubation period and
+- the <code>Doubling Time</code> of the <code>Total Confirmed Cases</code> in days.</p>
+<p><strong>Last data update:</strong> 18-04-2020</p>
+<p><em>Click the image to interact</em>
+<a href="https://public.tableau.com/views/SARS-CoV-2Dashboard_15872319731490/Global?:display_count=y&amp;:origin=viz_share_linkfeatured.png"><img src="preview.PNG" alt="SARS-CoV-2 Dashboard" /></a></p>
