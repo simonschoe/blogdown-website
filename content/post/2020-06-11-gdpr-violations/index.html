@@ -1,7 +1,32 @@
+---
+title: "Exploring GDPR Fines - The Tidy Approach"
+author: Simon Schölzel
+date: '2020-06-11'
+categories:
+- Rmarkdown
+- rvest
+- stringdist
+- ggplot2
+tags:
+- Rmarkdown
+- rvest
+- stringdist
+- ggplot2
+subtitle: ''
+summary: 'A tidyverse-based exploratory data analysis of GDPR violations in Europe. 📡'
+lastmod: '2020-06-11T20:46:05+02:00'
+featured: no
+image:
+  caption: '[Photo by Scott Webb on Pexels](https://www.pexels.com/de-de/foto/ausrustung-burgersteig-gehweg-mauer-430208/)'
+  focal_point: ''
+  preview_only: false
+projects: []
+---
+
 
 
 <p>Data privacy and data security, two espoused concepts that gain substantial traction in the current times of Covid-19, especially in the context of the upcoming German Corona tracking app <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> that is about to be released next week. Public expectations compete with individual reservations and data privacy concerns, partly fueled by events such as the 2013 Snowden revelations or the 2018 Cambridge Analytica scandal. Likewise, events like these contributed to the willingness of the EU to enforce supranational regulations on data privacy and security, climaxing the in the EU-GDPR <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> which is binding for all EU member states since 2018-05-25.</p>
-<p>In this blog post, I take the current debate as a motivation to dive into a dataset about monetary fines since the issuance of the EU-GDPR. In the process, I will do some web scraping to extract the dataset from the <em>GDPR Fines Tracker</em> on <em>privacyaffairs.com</em> <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, clean the dataset using the tools recently released as part of the <code>dplyr v1.0.0</code> release <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, experiment with some fuzzy string matching capabilities provided in the <code>stringdist</code> package <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> and conduct a couple of exploratory data analyses (EDA). Meanwhile, this post is inspired by <a href="https://www.youtube.com/watch?v=EVvnnWKO_4w">David Robinson</a>’s TidyTuesday Series. The whole analysis is embeeded into an R markdown document.</p>
+<p>In this blog post, I take the current debate as a motivation to dive into a dataset about monetary fines since the issuance of the EU-GDPR. In the process, I will do some web scraping to extract the dataset from the <em>GDPR Fines Tracker</em> on <em>privacyaffairs.com</em> <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, clean the dataset using the tools recently released as part of the <code>dplyr v1.0.0</code> release <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, experiment with some fuzzy string matching capabilities provided in the <code>stringdist</code> package <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> and conduct a couple of exploratory data analyses (EDA). Meanwhile, this post is inspired by <a href="https://www.youtube.com/watch?v=EVvnnWKO_4w">David Robinson</a>’s TidyTuesday Series. The whole analysis is embedded into an R markdown document.</p>
 <div id="load-packages" class="section level3">
 <h3>Load Packages</h3>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
@@ -214,7 +239,7 @@ With almost double the fee compared to the second place, Google takes the throne
       axis.text = element_text(size = font_size_other, color = &quot;black&quot;),
       axis.title = element_text(size = font_size_other)
     )</code></pre>
-<p><img src="index_files/figure-html/plot1-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2020-06-11-gdpr-violations/index_files/figure-html/plot1-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Extending the EDA to the whole landscape of fines illustrates that the very large fines (colorized in the figure) are rather rare. The majority of fines populate the area below the 100,000€ threshold with the top 10 dominating the upper parts of the graph. In addition, the figure yields some information about the distribution of fees across time. That is, penalties are imposed reluctantly in 2018 and more frequently starting with the year 2019. One may argue, that the authorities have viewed 2018 as a transitional period in which they have been busy with establishing proprietary regulatory practices and processes.</p>
 <p><em>(Note that fees are plotted on the log-scale!)</em></p>
 <pre class="r"><code>gdpr_data %&gt;%
@@ -256,7 +281,7 @@ With almost double the fee compared to the second place, Google takes the throne
         override.aes = list(size = 4)
       )
     )</code></pre>
-<p><img src="index_files/figure-html/plot2-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2020-06-11-gdpr-violations/index_files/figure-html/plot2-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Looking at the countries which have imposed the biggest fines on aggregate, it is remarkable for the <a href="https://de.wikipedia.org/wiki/Aluhut">German ‘Aluhut’</a> 📡 to renounce the lead and hand the gold and silver medal to France and Italy.</p>
 <p><img src="https://thumbs.gfycat.com/EvergreenRemarkableFowl-max-1mb.gif" width="70%" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>gdpr_data %&gt;%
@@ -292,7 +317,7 @@ With almost double the fee compared to the second place, Google takes the throne
       axis.text.x = element_text(angle = 90, hjust = 0.95,vjust = 0.2),
       axis.title = element_text(size = font_size_other)
     )</code></pre>
-<p><img src="index_files/figure-html/plot3-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2020-06-11-gdpr-violations/index_files/figure-html/plot3-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Further, I am curious which articles are violated on multiple occasions Therefore, I look at the subset of fines for which the violated GDPR article is present in the data. Since numerous fines relate to two or more articles at a time, I split the corresponding variable <code>violation</code> based on a delimiter using <code>separate_rows()</code>.
 Eventually, Hungary and Romania belong to the countries with the most diverse set of violated articles. In contrast, for countries like Iceland or Estonia there is barely any activity on the GDPR prosecution market. Finally, it becomes evident from the plot that article 5, 6 and 32 obviously pose the biggest challenge for companies as the data records at least one case relating to those articles for almost every country in the data.</p>
 <pre class="r"><code>gdpr_data %&gt;% 
@@ -326,7 +351,7 @@ Eventually, Hungary and Romania belong to the countries with the most diverse se
       axis.text = element_text(size = font_size_other, color = &quot;black&quot;),
       axis.title = element_text(size = font_size_other)
     )</code></pre>
-<p><img src="index_files/figure-html/plot4-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2020-06-11-gdpr-violations/index_files/figure-html/plot4-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Shifting the focus to the violated articles entirely, and asking the question which article incurred the highest average fine, we again find article 5, 6 and 32 on the front spots. For this plot, I <code>left_join()</code> the data with the respective article titles to give more meaning to the article numbers. Moreover, I assumed that a fine relates proportionally to all articles mentioned in the respective case by allocating the same share to each article involved in the fine.
 Strangely, one or more violations of <a href="https://gdpr.eu/article-58-supervisory-authority-investigative-powers/">Art. 58 GDPR</a>, titled ‘Powers’, supposedly lead to substantial penalties. This is strange in the sense that the contents of the article specifies the investigative powers of the supervisory authority, rather than explicitly regulating the data-related practices of the economic entities…</p>
 <pre class="r"><code>gdpr_data %&gt;% 
@@ -364,7 +389,7 @@ Strangely, one or more violations of <a href="https://gdpr.eu/article-58-supervi
       axis.text = element_text(size = font_size_other, color = &quot;black&quot;),
       axis.title = element_text(size = font_size_other)
     )</code></pre>
-<p><img src="index_files/figure-html/plot5-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2020-06-11-gdpr-violations/index_files/figure-html/plot5-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Finally, I am curious about the distribution of penalties throughout the year. Therefore, I use the <code>coord_polar()</code> function to transform the <code>geom_col</code> mapping into a circular representation. From this approach to visualizing the distribution it becomes evident that February and June appear to form the so-callded <em>busy season</em>. On the contrary, the plot may lead to suggest that the July-September period represents the general vacation period: Either the firms are less eager in violating GDPR regulations or the authorities are less active in pursuing them.</p>
 <pre class="r"><code>gdpr_data %&gt;%
   drop_na(price, date) %&gt;% 
@@ -398,7 +423,7 @@ Strangely, one or more violations of <a href="https://gdpr.eu/article-58-supervi
       line = element_blank(),
       legend.position = &quot;right&quot;
     )</code></pre>
-<p><img src="index_files/figure-html/plot6-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2020-06-11-gdpr-violations/index_files/figure-html/plot6-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Either way, the coming months on the GDPR prosecution market promise to be rather calm – one reason more to also take a (hopefully) well-deserved vacation… 🌅 🍹</p>
 </div>
 <div id="references" class="section level3">
