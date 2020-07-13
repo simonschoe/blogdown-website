@@ -12,7 +12,7 @@ categories:
 tags:
 - Tableau
 subtitle: ''
-summary: 'A data visualization project concerned with the spread of the novel Coronavirus realized in R and Tableau.'
+summary: 'This is my version of a Coronavirus dashboard, designed entirely using the data visualization tool Tableau. `r emo::ji("bar_chart")`'
 lastmod: '2020-04-18T20:46:05+02:00'
 featured: no
 image:
@@ -22,7 +22,9 @@ image:
 projects: []
 ---
 
-This is my version of a Coronavirus dashboard, designed entirely using the data visualization tool Tableau. The dark theme and layout is obviously inspired by the well-know dashboards provided by the [Robert Koch-Institut](https://experience.arcgis.com/experience/478220a4c454480e823b17327b2bf1d4) respectively the [Johns Hopkins Coronavirus Resource Center](https://coronavirus.jhu.edu/map.html).
+This is my version of a Coronavirus dashboard, designed entirely using the data visualization tool Tableau. `r emo::ji("bar_chart")`
+
+The dark theme and layout is obviously inspired by the well-know dashboards provided by the [Robert Koch-Institut](https://experience.arcgis.com/experience/478220a4c454480e823b17327b2bf1d4) respectively the [Johns Hopkins Coronavirus Resource Center](https://coronavirus.jhu.edu/map.html).
 
 The data dataset is drawn from three different sources:
 - SARS-CoV-2 data provided by the [JHU CSSE](https://github.com/CSSEGISandData/COVID-19),

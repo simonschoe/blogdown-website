@@ -12,5 +12,3 @@ header:
   caption: ""
   image: ""
 ---
-
-Platzhalter für Blog Posts

@@ -17,7 +17,7 @@ tags:
   - leaps
   - glmnet
 subtitle: ''
-summary: 'A machine learning project concerned with estimating the future transfer fees of European football players realized in R.'
+summary: 'A machine learning project from my time at CBS on predictive modelling of soccer player transfer fees realized in R. `r emo::ji("soccer_ball")`'
 lastmod: '2019-12-19T23:23:00+02:00'
 image:
   caption: '[Photo by Markus Spiske on Pexels](https://www.pexels.com/de-de/foto/himmel-sonnenuntergang-feld-sonnenaufgang-114296/)'

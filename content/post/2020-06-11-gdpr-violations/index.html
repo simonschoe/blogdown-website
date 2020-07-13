@@ -1,43 +1,18 @@
----
-title: "Exploring GDPR Fines - The Tidy Approach"
-author: Simon Schölzel
-date: '2020-06-11'
-categories:
-- Rmarkdown
-- rvest
-- stringdist
-- ggplot2
-tags:
-- Rmarkdown
-- rvest
-- stringdist
-- ggplot2
-subtitle: ''
-summary: 'Data Privacy and Data Security, two espoused concepts that gain substantial traction in the current times of Covid-19.'
-lastmod: '2020-06-11T20:46:05+02:00'
-featured: no
-image:
-  caption: '[Photo by Scott Webb on Pexels](https://www.pexels.com/de-de/foto/ausrustung-burgersteig-gehweg-mauer-430208/)'
-  focal_point: ''
-  preview_only: false
-projects: []
----
 
 
-
-<p>Data Privacy and Data Security, two espoused concepts that gain substantial traction in the current times of Covid-19, especially in the context of the upcoming German Corona tracking app <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> that is about to be released next week. Public expectations compete with individual reservations and data privacy concerns, partly fueled by events such as the 2013 Snowden revelations or the 2018 Camebridge Analytica scandal. Likewise, events like these contributed to the willingness of the EU to enforce supranational regulations on data privacy and security, climaxing the in the EU-GDPR <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> which is binding for all EU member states since 2018-05-25.</p>
-<p>In this blog post, I would like to take the current debate as an opportunity to dive into a dataset about monetary fines since the issuance of the EU-GDPR. In the process of doing so, I will do some web scraping to extract the dataset from the <em>GDPR Fines Tracker</em> on <em>privacyaffairs.com</em> <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, clean the dataset using some of the tools recently released as part of the <code>dplyr v1.0.0</code> release <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, experiment with some fuzzy string matching capabilities provided in the <code>stringdist</code> package <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> and engage in some visual EDA. Meanwhile, this post is inspired by <a href="https://www.youtube.com/watch?v=EVvnnWKO_4w">David Robinson</a>’s TidyTuesday Series. The whole analysis is embeeded into an R markdown document.</p>
+<p>Data privacy and data security, two espoused concepts that gain substantial traction in the current times of Covid-19, especially in the context of the upcoming German Corona tracking app <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> that is about to be released next week. Public expectations compete with individual reservations and data privacy concerns, partly fueled by events such as the 2013 Snowden revelations or the 2018 Cambridge Analytica scandal. Likewise, events like these contributed to the willingness of the EU to enforce supranational regulations on data privacy and security, climaxing the in the EU-GDPR <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> which is binding for all EU member states since 2018-05-25.</p>
+<p>In this blog post, I take the current debate as a motivation to dive into a dataset about monetary fines since the issuance of the EU-GDPR. In the process, I will do some web scraping to extract the dataset from the <em>GDPR Fines Tracker</em> on <em>privacyaffairs.com</em> <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, clean the dataset using the tools recently released as part of the <code>dplyr v1.0.0</code> release <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, experiment with some fuzzy string matching capabilities provided in the <code>stringdist</code> package <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> and conduct a couple of exploratory data analyses (EDA). Meanwhile, this post is inspired by <a href="https://www.youtube.com/watch?v=EVvnnWKO_4w">David Robinson</a>’s TidyTuesday Series. The whole analysis is embeeded into an R markdown document.</p>
 <div id="load-packages" class="section level3">
 <h3>Load Packages</h3>
 <pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
-pacman::p_load(rvest, tidyverse, kableExtra, extrafont, stringdist)</code></pre>
+pacman::p_load(rvest, tidyverse, extrafont, stringdist)</code></pre>
 </div>
 <div id="web-scraping" class="section level3">
 <h3>Web Scraping</h3>
-<p>First, I extract the dataset from the <em>GDPR Fines Tracker</em> on <em>privacyaffairs.com</em> using the <code>rvest</code> package and some regular expression (<em>regex</em>) to finally transform the JSON-format into a convenient data frame respectively tibble format.</p>
+<p>First, I extract the dataset from the <em>GDPR Fines Tracker</em> on <em>privacyaffairs.com</em> using the <code>rvest</code> package and some regular expression (<em>regex</em>). Finally, I transform the JSON-format into a convenient data frame respectively tibble format.</p>
 <pre class="r"><code>gdpr_data &lt;- read_html(&quot;https://www.privacyaffairs.com/gdpr-fines/&quot;) %&gt;% 
   #find html_node that contains the data
-  html_nodes(xpath = &quot;(.//script)[2]&quot;) %&gt;% 
+  html_nodes(xpath = &quot;(.//script)[4]&quot;) %&gt;% 
   #extract text
   rvest::html_text() %&gt;%
   #trim to produce clean json format
@@ -46,7 +21,13 @@ pacman::p_load(rvest, tidyverse, kableExtra, extrafont, stringdist)</code></pre>
   str_remove_all(paste(&quot;\\n&quot;, &quot;\\r&quot;, sep = &quot;|&quot;)) %&gt;% 
   #parse JSON
   jsonlite::fromJSON()</code></pre>
-<p>In total, 339 violations are categorized by <em>PrivacyAffairs</em> as of the day of this blogpost (2020-07-12). I randomly sample five observations to get a first overview of the dataset.</p>
+<p>In total, 339 violations are recorded by <em>PrivacyAffairs</em> as of the day of this blogpost (2020-06-11). I randomly sample five observations to get a first overview of the dataset.</p>
+<pre class="r"><code>set.seed(11062020)
+
+gdpr_data %&gt;% 
+  select(-summary, -picture) %&gt;% 
+  slice_sample(n = 5) %&gt;% 
+  mutate(across(where(is.character), str_trunc, 25))</code></pre>
 <pre><code>&gt;    id           name  price                 authority       date
 &gt; 1   6        Romania  20000 Romanian National Supe... 10/09/2019
 &gt; 2  86 United Kingdom      0  Information Commissioner 07/10/2019
@@ -68,8 +49,8 @@ pacman::p_load(rvest, tidyverse, kableExtra, extrafont, stringdist)</code></pre>
 </div>
 <div id="data-cleaning" class="section level3">
 <h3>Data Cleaning</h3>
-<p>In a next step, I streamline the dataset a little more and try to get rid of the various inconsistencies in the data entries.</p>
-<p>First, I would like to adjust some of the column names to highlight the actual content of the features. I rename <code>name</code> to <code>country</code>, <code>controller</code> to <code>entity</code> (i.e. the entity fined as a result of the violation) and <code>articleViolated</code> to <code>violation</code>. Second, I infer from the sample above that the violation <code>date</code> is not in standard international date format (<code>jjjj-mm-dd</code>). Let’s change this using the <code>lubridate</code> package while properly accounting for 15 <code>NA</code>s (indicated by unix time <code>1970-01-01</code>). Third, I format the <code>price</code> feature by specyfing it as a proper currency (using the <code>scales</code> package). Fourth, and analogue to the violation <code>date</code>, I properly account for <code>NA</code>s – taking the form “Not disclosed”, “Not available” and “Not known” – in the <code>entity</code> as well as <code>type</code> feature (containing 38 and 2 missing values, respectively). In addition, I must correct one errorneous fined entity (violation id 246). Finally, I clean the <code>violation</code> predictor using regex and the <code>stringr</code> package.</p>
+<p>In a next step, I streamline the data and try to get rid of the various inconsistencies in the inputs.</p>
+<p>First, I adjust various column names to emphasize the actual content of the features. I rename <code>name</code> to <code>country</code>, <code>controller</code> to <code>entity</code> (i.e. the entity fined as a result of the violation) and <code>articleViolated</code> to <code>violation</code>. Second, I infer from the sample above that the violation <code>date</code> is not in standard international date format (<code>jjjj-mm-dd</code>). Let’s change this using the <code>lubridate</code> package while properly accounting for 15 <code>NA</code>s (indicated by Unix time <code>1970-01-01</code>). Third, I format the <code>price</code> feature by specifying it as a proper currency (using the <code>scales</code> package). Fourth, and analogue to the violation <code>date</code>, I account for <code>NA</code>s – taking the form of “Not disclosed”, “Not available” and “Not known” – in the <code>entity</code> as well as <code>type</code> feature (containing 38 and 2 missing values, respectively). In addition, I correct one erroneous fined entity (violation id 246). Finally, I clean the <code>violation</code> predictor using regex and the <code>stringr</code> package.</p>
 <pre class="r"><code>gdpr_data &lt;- gdpr_data %&gt;% 
   rename(country = name, entity = controller, violation = articleViolated) %&gt;% 
   mutate(across(date, ~na_if(lubridate::mdy(.), &quot;1970-01-01&quot;))) %&gt;% 
@@ -78,9 +59,18 @@ pacman::p_load(rvest, tidyverse, kableExtra, extrafont, stringdist)</code></pre>
   mutate(across(entity, ~str_replace(., &quot;https://datenschutz-hamburg.de/assets/pdf/28._Taetigkeitsbericht_Datenschutz_2019_HmbBfDI.pdf&quot;, &quot;HVV GmbH&quot;))) %&gt;% 
   mutate(across(violation, ~if_else(is.na(str_extract(., &quot;&gt;.+&lt;&quot;)), ., str_extract(., &quot;&gt;.+&lt;&quot;) %&gt;% str_sub(., 2, -2)))) %&gt;%
   mutate(across(c(violation, authority), ~str_replace_all(., &quot;\\t&quot;, &quot;&quot;)))</code></pre>
-<p>Since a cross-check of the entity names reveals quite a few inconsistencies in how the entities have been written in the databse, I leverage the <code>stringdist</code> package for fuzzy string matching to homogenize some of the entries. For example, the <em>optimal string alignment</em> (<em>osa</em>) measure allows to assess the similarity of two strings by enumerating the number of pre-processing steps (deletion, insertion, substitution and transposition) necessary to transform one string into another. Adhering to the following assumptions yields several fuzzy matches which are accounted for in the subsequent EDA:
-* Set the minimum-osa threshold to 3 (i.e. only consider string pairs which require three transformations to be aligned).
-* Only consider strings of length &gt; 3 (otherwise the minimum-osa threshold becomes redundant).</p>
+<p>Since a cross-check of the entity names reveals quite a few inconsistencies in how the entities have been written to the database, I leverage the <code>stringdist</code> package for fuzzy string matching to homogenize some of the entries. For example, the <em>optimal string alignment</em> (<em>osa</em>) measure allows to assess the similarity of two strings by enumerating the number of pre-processing steps (deletion, insertion, substitution and transposition) necessary to convert one string into another. Adhering to the following assumptions yields several fuzzy matches which are accounted for in the subsequent EDA:</p>
+<ul>
+<li>Set the minimum-osa threshold to 3 (i.e. only consider string pairs which require three character conversions).</li>
+<li>Only consider strings of length &gt; 3 (otherwise the minimum-osa threshold becomes redundant).</li>
+</ul>
+<pre><code>&gt; Warning: `...` is not empty.
+&gt; 
+&gt; We detected these problematic arguments:
+&gt; * `needs_dots`
+&gt; 
+&gt; These dots only exist to allow future extensions and should be empty.
+&gt; Did you misspecify an argument?</code></pre>
 <pre><code>&gt; # A tibble: 9 x 5
 &gt;   ent_a                          ent_b                           osa  id.a  id.b
 &gt;   &lt;chr&gt;                          &lt;chr&gt;                         &lt;dbl&gt; &lt;int&gt; &lt;int&gt;
@@ -103,7 +93,7 @@ pacman::p_load(rvest, tidyverse, kableExtra, extrafont, stringdist)</code></pre>
                       &quot;bank&quot; = &quot;Bank&quot;,
                       &quot;Vodafone Espana&quot; = &quot;Vodafone España&quot;)))
                 )</code></pre>
-<p>Finally, let’s have a look at the cleaned data.</p>
+<p>Finally, let’s have a look at the cleaned data…</p>
 <pre><code>&gt;    id        country  price                 authority       date
 &gt; 1   6        Romania  20000 Romanian National Supe... 2019-10-09
 &gt; 2  86 United Kingdom     NA  Information Commissioner 2019-07-10
@@ -122,18 +112,25 @@ pacman::p_load(rvest, tidyverse, kableExtra, extrafont, stringdist)</code></pre>
 &gt; 3 https://www.aepd.es/re...
 &gt; 4 https://ico.org.uk/abo...
 &gt; 5</code></pre>
-<p>Now let’s briefly validate the integrity of the scraped dataset.</p>
+<p>…and validate the integrity of the dataset.</p>
+<pre><code>&gt; Warning: `...` is not empty.
+&gt; 
+&gt; We detected these problematic arguments:
+&gt; * `needs_dots`
+&gt; 
+&gt; These dots only exist to allow future extensions and should be empty.
+&gt; Did you misspecify an argument?</code></pre>
 <pre><code>&gt; # A tibble: 1 x 11
 &gt;      id picture country price authority  date entity violation  type source
 &gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt; &lt;int&gt;     &lt;int&gt; &lt;int&gt;  &lt;int&gt;     &lt;int&gt; &lt;int&gt;  &lt;int&gt;
 &gt; 1     0       0       0    11         0    15     38         0     2      0
 &gt; # ... with 1 more variable: summary &lt;int&gt;</code></pre>
-<p>And indeed, a quick glance at the missing values per feature reveals numerous missing values for the <code>price</code> (3.24%), <code>date</code> (4.42%) and <code>entity</code> (11.21%) feature. Without diving deeper into the information sources, it may be assumed that for the affected court cases no complete record of the verdict was openly published by the jurisdiction.</p>
-<p>Also, with regards to some of the fines, <em>PrivacyAffairs</em> explicitely states that “<em>The Marriott and British Airways cases are not final yet and the fines are just proposals. Other GDPR fines trackers incorrectly report those as final.</em>”</p>
+<p>A quick glance at the missing values per feature reveals numerous missing values for the <code>price</code> (3.24%), <code>date</code> (4.42%) and <code>entity</code> (11.21%) feature. Without diving deeper into the information sources, it may be assumed that for the affected court cases no complete record of the verdict was openly published by the respective jurisdiction.</p>
+<p>Also, with regards to two of the fines, <em>PrivacyAffairs</em> explicitly states that “<em>The Marriott and British Airways cases are not final yet and the fines are just proposals. Other GDPR fines trackers incorrectly report those as final.</em>”</p>
 </div>
 <div id="exploratory-data-analysis" class="section level3">
 <h3>Exploratory Data Analysis</h3>
-<p>Finally, the cleaned data allows for some interesting exploratory data analyses. In a first step, the data reveals the <em>Bulgarian Commission for Personal Data Protection</em> as the first ever authority imposing a punishment for the violation of the GDPR on 2018-05-12. Comparing this date to the enactment of the GDPR (2018-05-25) it raises the question how a fine could have been imposed 13 days prior to the GDPR coming into effect.</p>
+<p>Finally, the cleaned data allows for some interesting exploratory data analyses. In a first step, the data reveals the <em>Bulgarian Commission for Personal Data Protection</em> as the first ever authority imposing a punishment for the violation of the GDPR on 2018-05-12. Comparing this date to the enactment of the GDPR (2018-05-25) it raises the question how a fine could have been imposed 13 days prior to the GDPR coming into effect?!</p>
 <pre class="r"><code>gdpr_data %&gt;% 
   select(-summary, -picture) %&gt;% 
   filter(date == min(date, na.rm = TRUE)) %&gt;% 
@@ -142,8 +139,8 @@ pacman::p_load(rvest, tidyverse, kableExtra, extrafont, stringdist)</code></pre>
 &gt; 1 78 Bulgaria   500 Bulgarian Commission f... 2018-05-12   Bank
 &gt;                   violation                      type                    source
 &gt; 1 Art. 5 (1) b) GDPR, Ar... Non-compliance with la... https://www.cpdp.bg/?p...</code></pre>
-<p>Having identified the first ever fine, the natural question arises: Which are the <em>biggest</em> fines ever fined?
-With almost double the fee compared to the second place, Google takes the throne for the receiving the highest fine to date of 50,000,000€, imposed by the French Data Protection Authority at the beginning of 2019. Beside Google (which is by the way represented by twice in the top 10), the top 10 fined entities also include a telecom provider, a postal service provider and a real estate enterprise. Interestingly, the 10th spot is taken by public health insurance provider in Germany suggesting that the GDPR is not only directed towards the big corporations but applies equally to public bodies.</p>
+<p>Having identified the first ever fine, the natural question arises: What are the <em>biggest</em> penalties ever fined?
+With almost double the fee compared to the second place, Google takes the throne for receiving the highest fine to date (50,000,000€), imposed by the French Data Protection Authority at the beginning of 2019. Beside Google (which is by the way represented twice in the top 10), the top 10 fined entities also include a telecom provider, a postal service provider and a real estate enterprise. Interestingly, the 10th spot is held by a public health insurance provider in Germany suggesting that the GDPR is not only directed towards the big corporations but applies equally to public bodies.</p>
 <pre class="r"><code>gdpr_data %&gt;%
   select(-summary, -picture) %&gt;% 
   slice_max(order_by = price, n = 10) %&gt;% 
@@ -181,7 +178,7 @@ With almost double the fee compared to the second place, Google takes the throne
 &gt; 8  Non-compliance with la... https://www.gpdp.it/we...
 &gt; 9  Failure to implement s... https://www.cpdp.bg/in...
 &gt; 10 Failure to implement s...</code></pre>
-<p>Altogether, the 10 million € has only been cracked by five individual entities so far. Given that <a href="https://gdpr.eu/article-83-conditions-for-imposing-administrative-fines/">Art. 83 GDPR No. 4</a> explicitely uses the 10 million € threshold (or alternatively 2% of total revenues) as whip to emphasize the potential consequences of a violation, it appears that most firms have not yet stressed this limit – and correspondingly also most firms have not yet stressed the even more extreme limit of 20 million € specified in <a href="https://gdpr.eu/article-83-conditions-for-imposing-administrative-fines/">Art. 83 GDPR No. 5</a>.</p>
+<p>Altogether, the 10 million € threshold has only been cracked by five individual entities so far. Given that <a href="https://gdpr.eu/article-83-conditions-for-imposing-administrative-fines/">Art. 83 GDPR No. 4</a> explicitly uses the 10 million € threshold (or alternatively 2% of total revenues) as a whip to stress the potential consequences of a violation, it appears that most firms have not yet stressed this limit – and correspondingly also most firms have not yet stressed the even more extreme limit of 20 million € specified in <a href="https://gdpr.eu/article-83-conditions-for-imposing-administrative-fines/">Art. 83 GDPR No. 5</a>.</p>
 <pre class="r"><code>gdpr_data %&gt;%
   drop_na(price) %&gt;% 
   mutate_at(vars(entity), ~as.factor(.) %&gt;% 
@@ -217,9 +214,9 @@ With almost double the fee compared to the second place, Google takes the throne
       axis.text = element_text(size = font_size_other, color = &quot;black&quot;),
       axis.title = element_text(size = font_size_other)
     )</code></pre>
-<p><img src="/post/2020-06-11-gdpr-violations/index_files/figure-html/plot1-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Extending the EDA to the whole landscape of fines illustrates that the very large fines (colourized in the figure) are indeed rather rare. The majority of fines populate the area below the 100,000€ threshold with the top 10 defending the upper parts of the graph. In addition, the figure yields some more information about the distribution of fees across time. That is, penalties are imposed reluctantly in 2018 and more frequently starting with the year 2019. One may argue, that the authorities may have viewed 2018 as a transitional period in which they may have been busy with establishing own regulatory practices and processes.
-<em>(Note that fees are plotted on the log-scale)</em></p>
+<p><img src="index_files/figure-html/plot1-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Extending the EDA to the whole landscape of fines illustrates that the very large fines (colorized in the figure) are rather rare. The majority of fines populate the area below the 100,000€ threshold with the top 10 dominating the upper parts of the graph. In addition, the figure yields some information about the distribution of fees across time. That is, penalties are imposed reluctantly in 2018 and more frequently starting with the year 2019. One may argue, that the authorities have viewed 2018 as a transitional period in which they have been busy with establishing proprietary regulatory practices and processes.</p>
+<p><em>(Note that fees are plotted on the log-scale!)</em></p>
 <pre class="r"><code>gdpr_data %&gt;%
   drop_na(price, date) %&gt;% 
   mutate_at(vars(entity), ~as.factor(.) %&gt;% 
@@ -259,8 +256,8 @@ With almost double the fee compared to the second place, Google takes the throne
         override.aes = list(size = 4)
       )
     )</code></pre>
-<p><img src="/post/2020-06-11-gdpr-violations/index_files/figure-html/plot2-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Looking at the countries which have imposed the biggest fines on aggregate, it is remarkable for the <a href="https://de.wikipedia.org/wiki/Aluhut">German ‘Aluhut’</a> to renounce the lead and hand the gold and silver medal to France and Italy.</p>
+<p><img src="index_files/figure-html/plot2-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Looking at the countries which have imposed the biggest fines on aggregate, it is remarkable for the <a href="https://de.wikipedia.org/wiki/Aluhut">German ‘Aluhut’</a> 📡 to renounce the lead and hand the gold and silver medal to France and Italy.</p>
 <p><img src="https://thumbs.gfycat.com/EvergreenRemarkableFowl-max-1mb.gif" width="70%" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>gdpr_data %&gt;%
   drop_na(price) %&gt;% 
@@ -295,9 +292,9 @@ With almost double the fee compared to the second place, Google takes the throne
       axis.text.x = element_text(angle = 90, hjust = 0.95,vjust = 0.2),
       axis.title = element_text(size = font_size_other)
     )</code></pre>
-<p><img src="/post/2020-06-11-gdpr-violations/index_files/figure-html/plot3-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Further, I am curious which articles were violated most frequently. Therefore, I look at the subset of fines for which the violated GDPR article is available in the data. Since several fines relate to two or more articles at a time, I split the corresponding variable <code>violation</code> based on delimiter using <code>separate_rows()</code>.
-Eventually, we Hungary and Romania belong to the countries with the most diverse set of violated articles. In contrast, for countries like Iceland or Estonia there is barely any activity on the GDPR prosecution market. Finally, it becomes evident from the plot that article 5, 6 and 32 are obviously causing the biggest problems for companies as the data records a case relating to those articles for almost any country present in the dataset.</p>
+<p><img src="index_files/figure-html/plot3-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Further, I am curious which articles are violated on multiple occasions Therefore, I look at the subset of fines for which the violated GDPR article is present in the data. Since numerous fines relate to two or more articles at a time, I split the corresponding variable <code>violation</code> based on a delimiter using <code>separate_rows()</code>.
+Eventually, Hungary and Romania belong to the countries with the most diverse set of violated articles. In contrast, for countries like Iceland or Estonia there is barely any activity on the GDPR prosecution market. Finally, it becomes evident from the plot that article 5, 6 and 32 obviously pose the biggest challenge for companies as the data records at least one case relating to those articles for almost every country in the data.</p>
 <pre class="r"><code>gdpr_data %&gt;% 
   select(country, violation) %&gt;% 
   separate_rows(violation, sep = &quot;,&quot;) %&gt;% 
@@ -329,9 +326,9 @@ Eventually, we Hungary and Romania belong to the countries with the most diverse
       axis.text = element_text(size = font_size_other, color = &quot;black&quot;),
       axis.title = element_text(size = font_size_other)
     )</code></pre>
-<p><img src="/post/2020-06-11-gdpr-violations/index_files/figure-html/plot4-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Shifting the view a little, and asking the question which article incurred the highest average fine, we again find article 5, 6 and 32 on the front spots. For this plot, I joined the data with the respective article titles to give more meaning to the numbers themselves. Moreover, I assumed that a fine relates proportionally to all articles mentioned in the respective case by allocating the same share to each article involved in the fine.
-Strangely, one or more violations of <a href="https://gdpr.eu/article-58-supervisory-authority-investigative-powers/">Art. 58 GDPR</a>, titled ‘Powers’, supposedly lead to substantial penalties – strange in the sense that the contents of the article rather specifies the investigative powers of the supervisory authority, rather than explicitely regulating the data-related practices of the economic entities…</p>
+<p><img src="index_files/figure-html/plot4-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Shifting the focus to the violated articles entirely, and asking the question which article incurred the highest average fine, we again find article 5, 6 and 32 on the front spots. For this plot, I <code>left_join()</code> the data with the respective article titles to give more meaning to the article numbers. Moreover, I assumed that a fine relates proportionally to all articles mentioned in the respective case by allocating the same share to each article involved in the fine.
+Strangely, one or more violations of <a href="https://gdpr.eu/article-58-supervisory-authority-investigative-powers/">Art. 58 GDPR</a>, titled ‘Powers’, supposedly lead to substantial penalties. This is strange in the sense that the contents of the article specifies the investigative powers of the supervisory authority, rather than explicitly regulating the data-related practices of the economic entities…</p>
 <pre class="r"><code>gdpr_data %&gt;% 
   drop_na(price) %&gt;% 
   select(violation, price) %&gt;% 
@@ -367,8 +364,8 @@ Strangely, one or more violations of <a href="https://gdpr.eu/article-58-supervi
       axis.text = element_text(size = font_size_other, color = &quot;black&quot;),
       axis.title = element_text(size = font_size_other)
     )</code></pre>
-<p><img src="/post/2020-06-11-gdpr-violations/index_files/figure-html/plot5-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Finally, I am also curious about the distribution of penalties throughout the year. Using the <code>coord_polar()</code> function to transform the <code>geom_col</code> mapping into a circular representation. From this approach to visualizing the distribution it becomes evident that Februray and June appear to form the so-callded <em>busy season</em>. On the contrary, the plot may lead to suggest that the July-September period represents the general vacation period: Either the firms are less eager in violating GDPR regulations or the authorities are less active in pursuing potential violations.</p>
+<p><img src="index_files/figure-html/plot5-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Finally, I am curious about the distribution of penalties throughout the year. Therefore, I use the <code>coord_polar()</code> function to transform the <code>geom_col</code> mapping into a circular representation. From this approach to visualizing the distribution it becomes evident that February and June appear to form the so-callded <em>busy season</em>. On the contrary, the plot may lead to suggest that the July-September period represents the general vacation period: Either the firms are less eager in violating GDPR regulations or the authorities are less active in pursuing them.</p>
 <pre class="r"><code>gdpr_data %&gt;%
   drop_na(price, date) %&gt;% 
   mutate(month = lubridate::month(date, label = T)) %&gt;% 
@@ -401,8 +398,8 @@ Strangely, one or more violations of <a href="https://gdpr.eu/article-58-supervi
       line = element_blank(),
       legend.position = &quot;right&quot;
     )</code></pre>
-<p><img src="/post/2020-06-11-gdpr-violations/index_files/figure-html/plot6-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Either way, the upcoming month in the GDPR prosecution domain promise to be rather calm – one reason more for me to finally take a (hopefully) well-deserved vacation…</p>
+<p><img src="index_files/figure-html/plot6-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Either way, the coming months on the GDPR prosecution market promise to be rather calm – one reason more to also take a (hopefully) well-deserved vacation… 🌅 🍹</p>
 </div>
 <div id="references" class="section level3">
 <h3>References</h3>
@@ -410,10 +407,10 @@ Strangely, one or more violations of <a href="https://gdpr.eu/article-58-supervi
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>SAP; Deutsche Telekom (2020): Corona-Warn-App: The official COVID-19 exposure notification app for Germany, Github 2020, URL: <a href="https://github.com/corona-warn-app" class="uri">https://github.com/corona-warn-app</a> (accessed: 2020-06-11).<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>European Union (2018): General Data Protection Regulation (GDPR), European Union 2018, URL: <a href="https://gdpr.eu/tag/gdpr/" class="uri">https://gdpr.eu/tag/gdpr/</a> (accessed: 2020-06-11).<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>PrivacyAffairs (2020): GDPR Fines Tracker &amp; Statistics, PrivacyAffairs 2020, URL: <a href="https://www.privacyaffairs.com/gdpr-fines/" class="uri">https://www.privacyaffairs.com/gdpr-fines/</a> (accessed: 2020-06-11).<a href="#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>Wickham, H. (2020): dplyr 1.0.0 available now!, Tidyverse 2020, URL: <a href="https://www.tidyverse.org/blog/2020/06/dplyr-1-0-0/" class="uri">https://www.tidyverse.org/blog/2020/06/dplyr-1-0-0/</a> (accessed: 2020-06-11).<a href="#fnref4" class="footnote-back">↩</a></p></li>
-<li id="fn5"><p>van der Loo, M. P.J. (2014): The stringdist Package for Approximate String Matching, in: The R Journal, Vol. 6, No. 1, 2014, pp. 111‑122.<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>SAP; Deutsche Telekom (2020): Corona-Warn-App: The official COVID-19 exposure notification app for Germany, Github 2020, URL: <a href="https://github.com/corona-warn-app" class="uri">https://github.com/corona-warn-app</a> (accessed: 2020-06-11).<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>European Union (2018): General Data Protection Regulation (GDPR), European Union 2018, URL: <a href="https://gdpr.eu/tag/gdpr/" class="uri">https://gdpr.eu/tag/gdpr/</a> (accessed: 2020-06-11).<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>PrivacyAffairs (2020): GDPR Fines Tracker &amp; Statistics, PrivacyAffairs 2020, URL: <a href="https://www.privacyaffairs.com/gdpr-fines/" class="uri">https://www.privacyaffairs.com/gdpr-fines/</a> (accessed: 2020-06-11).<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Wickham, H. (2020): dplyr 1.0.0 available now!, Tidyverse 2020, URL: <a href="https://www.tidyverse.org/blog/2020/06/dplyr-1-0-0/" class="uri">https://www.tidyverse.org/blog/2020/06/dplyr-1-0-0/</a> (accessed: 2020-06-11).<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>van der Loo, M. P.J. (2014): The stringdist Package for Approximate String Matching, in: The R Journal, Vol. 6, No. 1, 2014, pp. 111‑122.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>

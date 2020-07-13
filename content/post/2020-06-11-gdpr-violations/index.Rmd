@@ -13,7 +13,7 @@ tags:
 - stringdist
 - ggplot2
 subtitle: ''
-summary: 'Data Privacy and Data Security, two espoused concepts that gain substantial traction in the current times of Covid-19.'
+summary: 'A tidyverse-based exploratory data analysis of GDPR violations in Europe. `r emo::ji("satellite_antenna")`'
 lastmod: '2020-06-11T20:46:05+02:00'
 featured: no
 image:
@@ -23,9 +23,9 @@ image:
 projects: []
 ---
 
-Data Privacy and Data Security, two espoused concepts that gain substantial traction in the current times of Covid-19, especially in the context of the upcoming German Corona tracking app [^1] that is about to be released next week. Public expectations compete with individual reservations and data privacy concerns, partly fueled by events such as the 2013 Snowden revelations or the 2018 Camebridge Analytica scandal. Likewise, events like these contributed to the willingness of the EU to enforce supranational regulations on data privacy and security, climaxing the in the EU-GDPR [^2] which is binding for all EU member states since 2018-05-25.
+Data privacy and data security, two espoused concepts that gain substantial traction in the current times of Covid-19, especially in the context of the upcoming German Corona tracking app [^1] that is about to be released next week. Public expectations compete with individual reservations and data privacy concerns, partly fueled by events such as the 2013 Snowden revelations or the 2018 Cambridge Analytica scandal. Likewise, events like these contributed to the willingness of the EU to enforce supranational regulations on data privacy and security, climaxing the in the EU-GDPR [^2] which is binding for all EU member states since 2018-05-25.
 
-In this blog post, I would like to take the current debate as an opportunity to dive into a dataset about monetary fines since the issuance of the EU-GDPR. In the process of doing so, I will do some web scraping to extract the dataset from the *GDPR Fines Tracker* on *privacyaffairs.com* [^3], clean the dataset using some of the tools recently released as part of the `dplyr v1.0.0` release [^4], experiment with some fuzzy string matching capabilities provided in the `stringdist` package [^5] and engage in some visual EDA. Meanwhile, this post is inspired by [David Robinson](https://www.youtube.com/watch?v=EVvnnWKO_4w)'s TidyTuesday Series. The whole analysis is embeeded into an R markdown document.
+In this blog post, I take the current debate as a motivation to dive into a dataset about monetary fines since the issuance of the EU-GDPR. In the process, I will do some web scraping to extract the dataset from the *GDPR Fines Tracker* on *privacyaffairs.com* [^3], clean the dataset using the tools recently released as part of the `dplyr v1.0.0` release [^4], experiment with some fuzzy string matching capabilities provided in the `stringdist` package [^5] and conduct a couple of exploratory data analyses (EDA). Meanwhile, this post is inspired by [David Robinson](https://www.youtube.com/watch?v=EVvnnWKO_4w)'s TidyTuesday Series. The whole analysis is embeeded into an R markdown document.
 
 ```{r setup, include = FALSE}
 #clear environment
@@ -55,16 +55,16 @@ knitr::opts_chunk$set(
 
 ```{r package-management, warning = FALSE, message = FALSE}
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(rvest, tidyverse, kableExtra, extrafont, stringdist)
+pacman::p_load(rvest, tidyverse, extrafont, stringdist)
 ```
 
 ### Web Scraping
 
-First, I extract the dataset from the *GDPR Fines Tracker* on *privacyaffairs.com* using the `rvest` package and some regular expression (*regex*) to finally transform the JSON-format into a convenient data frame respectively tibble format.
+First, I extract the dataset from the *GDPR Fines Tracker* on *privacyaffairs.com* using the `rvest` package and some regular expression (*regex*). Finally, I transform the JSON-format into a convenient data frame respectively tibble format.
 ```{r gdpr_data_raw}
 gdpr_data <- read_html("https://www.privacyaffairs.com/gdpr-fines/") %>% 
   #find html_node that contains the data
-  html_nodes(xpath = "(.//script)[2]") %>% 
+  html_nodes(xpath = "(.//script)[4]") %>% 
   #extract text
   rvest::html_text() %>%
   #trim to produce clean json format
@@ -75,9 +75,9 @@ gdpr_data <- read_html("https://www.privacyaffairs.com/gdpr-fines/") %>%
   jsonlite::fromJSON()
 ```
 
-In total, `r dim(gdpr_data)[1]` violations are categorized by *PrivacyAffairs* as of the day of this blogpost (`r Sys.Date()`). I randomly sample five observations to get a first overview of the dataset.
+In total, `r dim(gdpr_data)[1]` violations are recorded by *PrivacyAffairs* as of the day of this blogpost (2020-06-11). I randomly sample five observations to get a first overview of the dataset.
 
-```{r sample_table_1, echo = FALSE}
+```{r sample_table_1}
 set.seed(11062020)
 
 gdpr_data %>% 
@@ -88,9 +88,9 @@ gdpr_data %>%
 
 ### Data Cleaning
 
-In a next step, I streamline the dataset a little more and try to get rid of the various inconsistencies in the data entries. 
+In a next step, I streamline the data and try to get rid of the various inconsistencies in the inputs.
 
-First, I would like to adjust some of the column names to highlight the actual content of the features. I rename `name` to `country`, `controller` to `entity` (i.e. the entity fined as a result of the violation) and `articleViolated` to `violation`. Second, I infer from the sample above that the violation `date` is not in standard international date format (`jjjj-mm-dd`). Let's change this using the `lubridate` package while properly accounting for `r sum(gdpr_data$date == "01/01/1970")` `NA`s (indicated by unix time `1970-01-01`). Third, I format the `price` feature by specyfing it as a proper currency (using the `scales` package). Fourth, and analogue to the violation `date`, I properly account for `NA`s -- taking the form "Not disclosed", "Not available" and "Not known" -- in the `entity` as well as `type` feature (containing `r gdpr_data$controller %>% str_detect("Unknown|Not") %>% sum()` and `r gdpr_data$type %>% str_detect("Unknown|Not") %>% sum()` missing values, respectively). In addition, I must correct one errorneous fined entity (violation id `r gdpr_data %>% select(id, controller) %>% filter(controller == "https://datenschutz-hamburg.de/assets/pdf/28._Taetigkeitsbericht_Datenschutz_2019_HmbBfDI.pdf") %>% pull(id)`). Finally, I clean the `violation` predictor using regex and the `stringr` package.
+First, I adjust various column names to emphasize the actual content of the features. I rename `name` to `country`, `controller` to `entity` (i.e. the entity fined as a result of the violation) and `articleViolated` to `violation`. Second, I infer from the sample above that the violation `date` is not in standard international date format (`jjjj-mm-dd`). Let's change this using the `lubridate` package while properly accounting for `r sum(gdpr_data$date == "01/01/1970")` `NA`s (indicated by Unix time `1970-01-01`). Third, I format the `price` feature by specifying it as a proper currency (using the `scales` package). Fourth, and analogue to the violation `date`, I account for `NA`s -- taking the form of "Not disclosed", "Not available" and "Not known" -- in the `entity` as well as `type` feature (containing `r gdpr_data$controller %>% str_detect("Unknown|Not") %>% sum()` and `r gdpr_data$type %>% str_detect("Unknown|Not") %>% sum()` missing values, respectively). In addition, I correct one erroneous fined entity (violation id `r gdpr_data %>% select(id, controller) %>% filter(controller == "https://datenschutz-hamburg.de/assets/pdf/28._Taetigkeitsbericht_Datenschutz_2019_HmbBfDI.pdf") %>% pull(id)`). Finally, I clean the `violation` predictor using regex and the `stringr` package.
 ```{r gdpr_data_clean1}
 gdpr_data <- gdpr_data %>% 
   rename(country = name, entity = controller, violation = articleViolated) %>% 
@@ -102,8 +102,9 @@ gdpr_data <- gdpr_data %>%
   mutate(across(c(violation, authority), ~str_replace_all(., "\\t", "")))
 ```
 
-Since a cross-check of the entity names reveals quite a few inconsistencies in how the entities have been written in the databse, I leverage the `stringdist` package for fuzzy string matching to homogenize some of the entries. For example, the *optimal string alignment* (*osa*) measure allows to assess the similarity of two strings by enumerating the number of pre-processing steps (deletion, insertion, substitution and transposition) necessary to transform one string into another. Adhering to the following assumptions yields several fuzzy matches which are accounted for in the subsequent EDA:
-* Set the minimum-osa threshold to 3 (i.e. only consider string pairs which require three transformations to be aligned).
+Since a cross-check of the entity names reveals quite a few inconsistencies in how the entities have been written to the database, I leverage the `stringdist` package for fuzzy string matching to homogenize some of the entries. For example, the *optimal string alignment* (*osa*) measure allows to assess the similarity of two strings by enumerating the number of pre-processing steps (deletion, insertion, substitution and transposition) necessary to convert one string into another. Adhering to the following assumptions yields several fuzzy matches which are accounted for in the subsequent EDA:
+
+* Set the minimum-osa threshold to 3 (i.e. only consider string pairs which require three character conversions).
 * Only consider strings of length > 3 (otherwise the minimum-osa threshold becomes redundant).
 ```{r fuzzy_matching, echo = FALSE}
 entities <- gdpr_data %>% 
@@ -139,7 +140,7 @@ gdpr_data <- gdpr_data %>%
                 )
 ``` 
 
-Finally, let's have a look at the cleaned data.
+Finally, let's have a look at the cleaned data...
 ```{r sample_table_2, echo = FALSE}
 set.seed(11062020)
 
@@ -149,15 +150,15 @@ gdpr_data %>%
   mutate(across(where(is.character), str_trunc, 25))
 ```
 
-Now let's briefly validate the integrity of the scraped dataset.
+...and validate the integrity of the dataset.
 ```{r missing_values, echo = FALSE}
 gdpr_data %>% 
   map_df(., ~sum(is.na(.)))
 ```
 
-And indeed, a quick glance at the missing values per feature reveals numerous missing values for the `price` (`r (gdpr_data %>% map_df(., ~sum(is.na(.))) %>% pull(price) / dim(gdpr_data)[[1]]) %>% scales::percent(accuracy = 0.01)`), `date` (`r (gdpr_data %>% map_df(., ~sum(is.na(.))) %>% pull(date) / dim(gdpr_data)[[1]]) %>% scales::percent(accuracy = 0.01)`) and `entity` (`r (gdpr_data %>% map_df(., ~sum(is.na(.))) %>% pull(entity) / dim(gdpr_data)[[1]]) %>% scales::percent(accuracy = 0.01)`) feature. Without diving deeper into the information sources, it may be assumed that for the affected court cases no complete record of the verdict was openly published by the jurisdiction.
+A quick glance at the missing values per feature reveals numerous missing values for the `price` (`r (gdpr_data %>% map_df(., ~sum(is.na(.))) %>% pull(price) / dim(gdpr_data)[[1]]) %>% scales::percent(accuracy = 0.01)`), `date` (`r (gdpr_data %>% map_df(., ~sum(is.na(.))) %>% pull(date) / dim(gdpr_data)[[1]]) %>% scales::percent(accuracy = 0.01)`) and `entity` (`r (gdpr_data %>% map_df(., ~sum(is.na(.))) %>% pull(entity) / dim(gdpr_data)[[1]]) %>% scales::percent(accuracy = 0.01)`) feature. Without diving deeper into the information sources, it may be assumed that for the affected court cases no complete record of the verdict was openly published by the respective jurisdiction.
 
-Also, with regards to some of the fines, *PrivacyAffairs* explicitely states that "*The Marriott and British Airways cases are not final yet and the fines are just proposals. Other GDPR fines trackers incorrectly report those as final.*"
+Also, with regards to two of the fines, *PrivacyAffairs* explicitly states that "*The Marriott and British Airways cases are not final yet and the fines are just proposals. Other GDPR fines trackers incorrectly report those as final.*"
 
 ### Exploratory Data Analysis
 ```{r parameters, include=F}
@@ -179,7 +180,7 @@ euro <- scales::dollar_format(
 )
 ```
 
-Finally, the cleaned data allows for some interesting exploratory data analyses. In a first step, the data reveals the *Bulgarian Commission for Personal Data Protection* as the first ever authority imposing a punishment for the violation of the GDPR on 2018-05-12. Comparing this date to the enactment of the GDPR (2018-05-25) it raises the question how a fine could have been imposed `r lubridate::time_length(difftime(as.Date("2018-05-12"), as.Date("2018-05-25")), "days") * -1` days prior to the GDPR coming into effect.
+Finally, the cleaned data allows for some interesting exploratory data analyses. In a first step, the data reveals the *Bulgarian Commission for Personal Data Protection* as the first ever authority imposing a punishment for the violation of the GDPR on 2018-05-12. Comparing this date to the enactment of the GDPR (2018-05-25) it raises the question how a fine could have been imposed `r lubridate::time_length(difftime(as.Date("2018-05-12"), as.Date("2018-05-25")), "days") * -1` days prior to the GDPR coming into effect?!
 ```{r top}
 gdpr_data %>% 
   select(-summary, -picture) %>% 
@@ -187,8 +188,8 @@ gdpr_data %>%
   mutate(across(where(is.character), str_trunc, 25))
 ```
 
-Having identified the first ever fine, the natural question arises: Which are the *biggest* fines ever fined?
-With almost double the fee compared to the second place, Google takes the throne for the receiving the highest fine to date of 50,000,000€, imposed by the French Data Protection Authority at the beginning of 2019. Beside Google (which is by the way represented by twice in the top 10), the top 10 fined entities also include a telecom provider, a postal service provider and a real estate enterprise. Interestingly, the 10th spot is taken by public health insurance provider in Germany suggesting that the GDPR is not only directed towards the big corporations but applies equally to public bodies.
+Having identified the first ever fine, the natural question arises: What are the *biggest* penalties ever fined?
+With almost double the fee compared to the second place, Google takes the throne for receiving the highest fine to date (50,000,000€), imposed by the French Data Protection Authority at the beginning of 2019. Beside Google (which is by the way represented twice in the top 10), the top 10 fined entities also include a telecom provider, a postal service provider and a real estate enterprise. Interestingly, the 10th spot is held by a public health insurance provider in Germany suggesting that the GDPR is not only directed towards the big corporations but applies equally to public bodies.
 ```{r top10}
 gdpr_data %>%
   select(-summary, -picture) %>% 
@@ -196,7 +197,7 @@ gdpr_data %>%
   mutate(across(where(is.character), str_trunc, 25))
 ```
 
-Altogether, the 10 million € has only been cracked by five individual entities so far. Given that [Art. 83 GDPR No. 4](https://gdpr.eu/article-83-conditions-for-imposing-administrative-fines/) explicitely uses the 10 million € threshold (or alternatively 2% of total revenues) as whip to emphasize the potential consequences of a violation, it appears that most firms have not yet stressed this limit -- and correspondingly also most firms have not yet stressed the even more extreme limit of 20 million € specified in [Art. 83 GDPR No. 5](https://gdpr.eu/article-83-conditions-for-imposing-administrative-fines/).
+Altogether, the 10 million € threshold has only been cracked by five individual entities so far. Given that [Art. 83 GDPR No. 4](https://gdpr.eu/article-83-conditions-for-imposing-administrative-fines/) explicitly uses the 10 million € threshold (or alternatively 2% of total revenues) as a whip to stress the potential consequences of a violation, it appears that most firms have not yet stressed this limit -- and correspondingly also most firms have not yet stressed the even more extreme limit of 20 million € specified in [Art. 83 GDPR No. 5](https://gdpr.eu/article-83-conditions-for-imposing-administrative-fines/).
 ```{r plot1}
 gdpr_data %>%
   drop_na(price) %>% 
@@ -235,8 +236,9 @@ gdpr_data %>%
     )
 ```
 
-Extending the EDA to the whole landscape of fines illustrates that the very large fines (colourized in the figure) are indeed rather rare. The majority of fines populate the area below the 100,000€ threshold with the top 10 defending the upper parts of the graph. In addition, the figure yields some more information about the distribution of fees across time. That is, penalties are imposed reluctantly in 2018 and more frequently starting with the year 2019. One may argue, that the authorities may have viewed 2018 as a transitional period in which they may have been busy with establishing own regulatory practices and processes.
-*(Note that fees are plotted on the log-scale)*
+Extending the EDA to the whole landscape of fines illustrates that the very large fines (colorized in the figure) are rather rare. The majority of fines populate the area below the 100,000€ threshold with the top 10 dominating the upper parts of the graph. In addition, the figure yields some information about the distribution of fees across time. That is, penalties are imposed reluctantly in 2018 and more frequently starting with the year 2019. One may argue, that the authorities have viewed 2018 as a transitional period in which they have been busy with establishing proprietary regulatory practices and processes.
+
+*(Note that fees are plotted on the log-scale!)*
 ```{r plot2}
 gdpr_data %>%
   drop_na(price, date) %>% 
@@ -279,9 +281,9 @@ gdpr_data %>%
     )
 ```
 
-Looking at the countries which have imposed the biggest fines on aggregate, it is remarkable for the [German 'Aluhut'](https://de.wikipedia.org/wiki/Aluhut) to renounce the lead and hand the gold and silver medal to France and Italy.
+Looking at the countries which have imposed the biggest fines on aggregate, it is remarkable for the [German 'Aluhut'](https://de.wikipedia.org/wiki/Aluhut) `r emo::ji("satellite_antenna")` to renounce the lead and hand the gold and silver medal to France and Italy.
 
-```{r, echo = FALSE, fig.width = 3, fig.asp = 0.618}
+```{r, echo = FALSE, fig.width = 2, fig.asp = 0.618}
 knitr::include_graphics("https://thumbs.gfycat.com/EvergreenRemarkableFowl-max-1mb.gif")
 ```
 
@@ -321,8 +323,8 @@ gdpr_data %>%
     )
 ```
 
-Further, I am curious which articles were violated most frequently. Therefore, I look at the subset of fines for which the violated GDPR article is available in the data. Since several fines relate to two or more articles at a time, I split the corresponding variable `violation` based on delimiter using `separate_rows()`.
-Eventually, we Hungary and Romania belong to the countries with the most diverse set of violated articles. In contrast, for countries like Iceland or Estonia there is barely any activity on the GDPR prosecution market. Finally, it becomes evident from the plot that article 5, 6 and 32 are obviously causing the biggest problems for companies as the data records a case relating to those articles for almost any country present in the dataset.
+Further, I am curious which articles are violated on multiple occasions Therefore, I look at the subset of fines for which the violated GDPR article is present in the data. Since numerous fines relate to two or more articles at a time, I split the corresponding variable `violation` based on a delimiter using `separate_rows()`.
+Eventually, Hungary and Romania belong to the countries with the most diverse set of violated articles. In contrast, for countries like Iceland or Estonia there is barely any activity on the GDPR prosecution market. Finally, it becomes evident from the plot that article 5, 6 and 32 obviously pose the biggest challenge for companies as the data records at least one case relating to those articles for almost every country in the data.
 ```{r plot4}
 gdpr_data %>% 
   select(country, violation) %>% 
@@ -357,8 +359,8 @@ gdpr_data %>%
     )
 ```
 
-Shifting the view a little, and asking the question which article incurred the highest average fine, we again find article 5, 6 and 32 on the front spots. For this plot, I joined the data with the respective article titles to give more meaning to the numbers themselves. Moreover, I assumed that a fine relates proportionally to all articles mentioned in the respective case by allocating the same share to each article involved in the fine.
-Strangely, one or more violations of [Art. 58 GDPR](https://gdpr.eu/article-58-supervisory-authority-investigative-powers/), titled 'Powers', supposedly lead to substantial penalties -- strange in the sense that the contents of the article rather specifies the investigative powers of the supervisory authority, rather than explicitely regulating the data-related practices of the economic entities...
+Shifting the focus to the violated articles entirely, and asking the question which article incurred the highest average fine, we again find article 5, 6 and 32 on the front spots. For this plot, I `left_join()` the data with the respective article titles to give more meaning to the article numbers. Moreover, I assumed that a fine relates proportionally to all articles mentioned in the respective case by allocating the same share to each article involved in the fine.
+Strangely, one or more violations of [Art. 58 GDPR](https://gdpr.eu/article-58-supervisory-authority-investigative-powers/), titled 'Powers', supposedly lead to substantial penalties. This is strange in the sense that the contents of the article specifies the investigative powers of the supervisory authority, rather than explicitly regulating the data-related practices of the economic entities...
 ```{r plot5}
 gdpr_data %>% 
   drop_na(price) %>% 
@@ -397,7 +399,7 @@ gdpr_data %>%
     )
 ```
 
-Finally, I am also curious about the distribution of penalties throughout the year. Using the `coord_polar()` function to transform the `geom_col` mapping into a circular representation. From this approach to visualizing the distribution it becomes evident that Februray and June appear to form the so-callded *busy season*. On the contrary, the plot may lead to suggest that the July-September period represents the general vacation period: Either the firms are less eager in violating GDPR regulations or the authorities are less active in pursuing potential violations.
+Finally, I am curious about the distribution of penalties throughout the year. Therefore, I use the `coord_polar()` function to transform the `geom_col` mapping into a circular representation. From this approach to visualizing the distribution it becomes evident that February and June appear to form the so-callded *busy season*. On the contrary, the plot may lead to suggest that the July-September period represents the general vacation period: Either the firms are less eager in violating GDPR regulations or the authorities are less active in pursuing them.
 ```{r plot6, warning = F}
 gdpr_data %>%
   drop_na(price, date) %>% 
@@ -433,7 +435,7 @@ gdpr_data %>%
     )
 ```
 
-Either way, the upcoming month in the GDPR prosecution domain promise to be rather calm -- one reason more for me to finally take a (hopefully) well-deserved vacation...
+Either way, the coming months on the GDPR prosecution market promise to be rather calm -- one reason more to also take a (hopefully) well-deserved vacation... `r emo::ji("sunrise")` `r emo::ji("tropical_drink")`
 
 ### References
 
